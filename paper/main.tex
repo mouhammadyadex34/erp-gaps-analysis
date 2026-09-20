@@ -1,0 +1,94 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{siunitx}
+\sisetup{group-separator={\,}, group-minimum-digits=4, detect-all}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{references.bib}
+\usepackage[hidelinks]{hyperref}
+
+\title{Cartographier les manques des ERP :\\
+       une analyse des modules tiers de l'écosystème Odoo}
+\author{Ameth Yade \\
+        \small M2 SIGLIS --- Université de Pau et des Pays de l'Adour}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+% À écrire en dernier. Quatre à six phrases : le problème, la méthode,
+% le résultat principal, la portée. C'est la seule partie que la majorité
+% des lecteurs lira, et elle doit tenir seule.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\subsection{Le marché des ERP et le modèle modulaire}
+\subsection{La question de recherche}
+\subsection{Ce que ce travail apporte}
+
+\section{Méthodologie}
+\subsection{Source des données et périmètre}
+\subsection{Protocole de collecte et précautions éthiques}
+
+% Les règles pertinentes du robots.txt d'apps.odoo.com sont
+% Disallow: */page/*/*, Disallow: *?*page= et Disallow: *?*order=.
+% Les URL employées sont de la forme
+% /apps/modules/category/<catégorie>/browse/page/<n> : la pagination est un
+% segment terminal, donc hors du motif */page/*/* ; aucun paramètre page= ni
+% order= n'est utilisé. Délai de 1,5 s entre requêtes, User-Agent identifié.
+
+\subsection{Reconstitution de la liste des catégories}
+
+% Section à part entière : la page d'accueil n'affiche que 18 catégories, dont
+% la somme ne couvre que 68 \% du catalogue. 111 catégories ont été
+% reconstituées par sondage, validées par un écart résiduel de
+% \num{74} modules sur \num{90848}, soit \SI{0.08}{\percent}.
+
+\subsection{Nettoyage : décisions prises et justifications}
+\subsection{Table de correspondance vers un référentiel fonctionnel}
+\subsection{Variables retenues}
+
+\section{Description du corpus}
+\subsection{Volumétrie}
+\subsection{Répartition par fonction métier}
+\subsection{Structure du marché des éditeurs}
+
+\section{Résultats}
+\subsection{Où se concentrent les modules tiers}
+\subsection{Le poids des contraintes locales et réglementaires}
+\subsection{La spécialisation sectorielle}
+\subsection{Évolution par version : manques comblés, manques persistants}
+
+\section{Discussion}
+\subsection{Ce que révèle cette carte}
+\subsection{Implications pour un projet ERP : faire ou acheter}
+\subsection{Limites de l'étude}
+
+% Rappel à tenir dans tout le document : un volume élevé de modules dans une
+% fonction ne prouve pas que le standard y est mauvais. Il peut signaler un
+% besoin réellement non couvert, un besoin trop spécifique pour être
+% standardisé, ou une rubrique où il est simplement facile de publier.
+
+\section{Conclusion}
+
+\appendix
+\section{Dictionnaire des données}
+\section{Table de correspondance des catégories}
+\section{Code source}
+
+\printbibliography
+
+\end{document}
