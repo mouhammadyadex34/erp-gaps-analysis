@@ -21,3 +21,12 @@ data/interim/*.log
 
 # Sorties de nbconvert (les notebooks versionnes restent les sources)
 notebooks/*.nbconvert.ipynb
+
+# Le corpus nettoye n'est pas versionne : 9 Mo pour 12 000 lignes, donc
+# ~70 Mo une fois la collecte complete. Il se regenere entierement avec
+# notebooks/01_collecte.ipynb puis 02_nettoyage.ipynb.
+data/processed/modules_clean.csv
+
+# Les figures sont regenerees par 03_analyse.ipynb. Elles ne sont
+# versionnees qu'une fois produites sur le corpus complet.
+figures/
