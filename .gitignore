@@ -1,0 +1,17 @@
+# Donnees brutes : non versionnees, mais integralement regenerables via
+# `python src/scraper.py` (le script, lui, est versionne).
+data/raw/
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Sorties de compilation LaTeX
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/*.bbl
+paper/*.bcf
+paper/*.blg
+paper/*.run.xml
