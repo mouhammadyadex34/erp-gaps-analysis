@@ -39,12 +39,18 @@ modules publiés dessinent donc, en creux, une carte des manques des ERP.
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-
-python src/discover_categories.py  # liste des catégories  (122 requêtes, ~4 min)
-python src/census.py               # matrice catégorie x série  (~320 req., ~10 min)
-python src/scraper.py              # fiches détaillées  (~4 650 pages, ~2 h)
-python src/cleaning.py             # data/processed/modules_clean.csv
+jupyter lab
 ```
+
+Puis les trois notebooks, dans l'ordre :
+
+| Notebook | Ce qu'il fait | Durée |
+|---|---|---|
+| `01_collecte.ipynb` | robots.txt, catégories, recensement, fiches | ~2 h |
+| `02_nettoyage.ipynb` | nettoyage, référentiel, dictionnaire | < 1 min |
+| `03_analyse.ipynb` | analyses et cinq figures | < 1 min |
+
+Ils sont **autonomes** : tout le code y figure, aucun module à importer.
 
 Les deux scripts mettent en cache chaque page sur disque et reprennent où ils
 se sont arrêtés. Relancer ne retélécharge rien.
@@ -111,18 +117,22 @@ compte, aucune donnée personnelle au-delà du nom commercial de l'éditeur.
 ## Structure du dépôt
 
 ```
-├── src/
-│   ├── odoo_client.py     client HTTP : cache, délai, User-Agent
-│   ├── parse_cards.py     extraction des fiches d'une page de liste
-│   ├── census.py          matrice catégorie x série
-│   └── scraper.py         collecte complète, avec reprise
-├── notebooks/             01_collecte, 02_nettoyage, 03_analyse
+├── notebooks/
+│   ├── 01_collecte.ipynb   robots.txt, catégories, recensement, fiches
+│   ├── 02_nettoyage.ipynb  nettoyage, référentiel, dictionnaire
+│   └── 03_analyse.ipynb    analyses et figures
 ├── data/
-│   ├── raw/               non versionné, régénérable par les scripts
-│   └── processed/         modules_clean.csv + dictionnaire_donnees.md
-├── figures/               figures en PDF vectoriel
-└── paper/                 document LaTeX
+│   ├── raw/                non versionné, régénéré par le notebook 01
+│   └── processed/
+│       ├── categories.csv           les 111 catégories du site
+│       ├── category_mapping.csv     la table de correspondance
+│       └── dictionnaire_donnees.md  description de chaque colonne
+├── figures/                figures en PDF vectoriel (générées)
+└── paper/                  document LaTeX
 ```
+
+Le corpus nettoyé (`data/processed/modules_clean.csv`, ~70 Mo) n'est pas versionné :
+il se régénère intégralement depuis les notebooks 01 et 02.
 
 ## Licence
 
