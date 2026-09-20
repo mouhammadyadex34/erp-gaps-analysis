@@ -15,3 +15,6 @@ paper/*.bbl
 paper/*.bcf
 paper/*.blg
 paper/*.run.xml
+
+# Journaux de collecte (bruit, non reproductibles)
+data/interim/*.log
