@@ -2,8 +2,9 @@
 
 Strategie
 ---------
-On parcourt les 18 categories de premier niveau et on pagine chacune jusqu'a
-epuisement. La serie Odoo n'est PAS obtenue via le filtre `?series=` mais lue
+On parcourt les 111 categories du site et on pagine chacune jusqu'a
+epuisement. Se limiter aux 18 categories affichees sur la page d'accueil
+amputerait le corpus d'un tiers : voir `discover_categories.py`. La serie Odoo n'est PAS obtenue via le filtre `?series=` mais lue
 dans l'URL de chaque carte (`/apps/modules/18.0/nom`). Deux raisons :
 
 1. Le filtre `?series=` n'expose que les 16 versions majeures. Les releases
@@ -33,7 +34,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from census import parse_count
-from odoo_client import CATEGORIES, PoliteClient, browse_url
+from odoo_client import PoliteClient, browse_url, load_categories
 from parse_cards import FIELDNAMES, as_row, parse_page
 
 PER_PAGE = 20
@@ -110,7 +111,7 @@ def main() -> None:
     parser.add_argument("--out", default="data/raw/modules_raw.csv")
     parser.add_argument("--done", default="data/raw/pages_done.txt")
     parser.add_argument("--delay", type=float, default=1.5)
-    parser.add_argument("--categories", nargs="*", default=CATEGORIES)
+    parser.add_argument("--categories", nargs="*", default=None)
     parser.add_argument("--limit-pages", type=int, default=None,
                         help="Limite de pages par categorie (pour tester).")
     args = parser.parse_args()
@@ -118,8 +119,10 @@ def main() -> None:
     logging.basicConfig(level=logging.INFO,
                         format="%(asctime)s %(levelname)s %(message)s",
                         datefmt="%H:%M:%S")
+    categories = args.categories or load_categories()
+    log.info("%d categories a parcourir", len(categories))
     scrape(Path(args.out), Path(args.done), args.delay,
-           args.categories, args.limit_pages)
+           categories, args.limit_pages)
 
 
 if __name__ == "__main__":

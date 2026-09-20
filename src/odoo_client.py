@@ -18,6 +18,7 @@ est un segment terminal (`/page/7`, sans segment suivant), donc hors du motif
 
 from __future__ import annotations
 
+import csv
 import hashlib
 import logging
 import random
@@ -43,13 +44,40 @@ SERIES = [
     "12.0", "13.0", "14.0", "15.0", "16.0", "17.0", "18.0", "19.0",
 ]
 
-# Les 18 categories de premier niveau listees sur /apps/modules/browse.
-CATEGORIES = [
+# Les 18 categories mises en avant sur /apps/modules/browse. ATTENTION : ce
+# n'est PAS la liste complete. Leurs effectifs cumules ne couvrent que ~68 % du
+# catalogue ; 93 autres categories existent sans etre affichees nulle part
+# (« Tools », la plus grosse du site avec 12 210 modules, en fait partie).
+# Cette liste ne sert donc qu'au sondage initial : la collecte utilise
+# `load_categories()`, qui lit la liste reconstituee et verifiee.
+FEATURED_CATEGORIES = [
     "Accounting", "Discuss", "Document Management", "Extra Tools",
     "Human Resources", "Industries", "Localization", "Manufacturing",
     "Marketing", "Point of Sale", "Productivity", "Project", "Purchases",
     "Sales", "Tutorial", "Warehouse", "Website", "eCommerce",
 ]
+CATEGORIES = FEATURED_CATEGORIES  # alias retrocompatible
+
+CATEGORIES_FILE = Path("data/processed/categories.csv")
+
+
+def load_categories(path: Path | str = CATEGORIES_FILE) -> list[str]:
+    """Liste complete des categories, de la plus fournie a la plus rare.
+
+    Produite par `discover_categories.py` et validee par le fait que la somme
+    de ses effectifs (90 774) rejoint le total annonce par le site (90 848) a
+    0,08 % pres. En l'absence du fichier, on retombe sur les 18 categories
+    mises en avant, mais la collecte est alors incomplete d'un tiers.
+    """
+    path = Path(path)
+    if not path.exists():
+        log.warning("%s absent : repli sur les 18 categories mises en avant "
+                    "(couverture ~68 %%). Lancez discover_categories.py.", path)
+        return list(FEATURED_CATEGORIES)
+    with path.open(encoding="utf-8") as fh:
+        rows = list(csv.DictReader(fh))
+    rows.sort(key=lambda r: -int(r["n_modules"]))
+    return [r["category"] for r in rows]
 
 log = logging.getLogger(__name__)
 

@@ -20,7 +20,7 @@ modules publiés dessinent donc, en creux, une carte des manques des ERP.
 
 ## Méthodologie en cinq lignes
 
-1. **Source** — l'Odoo Apps Store (`apps.odoo.com`), 18 catégories métier,
+1. **Source** — l'Odoo Apps Store (`apps.odoo.com`), **111 catégories**,
    séries Odoo 5.0 à 19.0 plus les releases intermédiaires `saas-*`.
 2. **Collecte** — les pages de liste, qui portent déjà nom, éditeur, prix,
    série et compteur d'usage. Une requête pour 20 modules au lieu d'une par
@@ -40,14 +40,39 @@ modules publiés dessinent donc, en creux, une carte des manques des ERP.
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-python src/census.py     # matrice catégorie x série  (~320 requêtes, ~10 min)
-python src/scraper.py    # fiches détaillées          (~4 550 pages, ~2 h)
+python src/discover_categories.py  # liste des catégories  (122 requêtes, ~4 min)
+python src/census.py               # matrice catégorie x série  (~320 req., ~10 min)
+python src/scraper.py              # fiches détaillées  (~4 650 pages, ~2 h)
+python src/cleaning.py             # data/processed/modules_clean.csv
 ```
 
 Les deux scripts mettent en cache chaque page sur disque et reprennent où ils
 se sont arrêtés. Relancer ne retélécharge rien.
 
 Puis les notebooks, dans l'ordre : `01_collecte`, `02_nettoyage`, `03_analyse`.
+
+## Un piège qui coûtait un tiers du corpus
+
+La page d'accueil de l'Apps Store affiche **18 catégories**. Les prendre pour
+la liste complète est l'erreur naturelle — et elle est silencieuse.
+
+Le contrôle de cohérence l'a révélée : la somme des effectifs de ces 18
+catégories ne représente que **68 %** du total annoncé par le site. Un tiers du
+catalogue était rangé ailleurs. Un sondage a suffi à trouver `Tools`, **la plus
+grosse catégorie du site avec 12 210 modules**, qui n'est affichée nulle part.
+
+`discover_categories.py` sonde 122 noms candidats tirés des catégories standard
+d'Odoo et en retient **111 non vides**. La liste est validée par le seul test
+qui vaille :
+
+| | |
+|---|---:|
+| Somme des 111 catégories | 90 774 |
+| Total annoncé par le site | 90 848 |
+| **Résidu non attribué** | **74 (0,08 %)** |
+
+Ce résidu est publié plutôt que dissimulé. Il prouve aussi que les catégories
+forment une **partition** et non une hiérarchie : aucun double comptage.
 
 ## Éthique de la collecte
 
