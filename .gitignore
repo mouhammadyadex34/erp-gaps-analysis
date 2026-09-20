@@ -18,3 +18,6 @@ paper/*.run.xml
 
 # Journaux de collecte (bruit, non reproductibles)
 data/interim/*.log
+
+# Sorties de nbconvert (les notebooks versionnes restent les sources)
+notebooks/*.nbconvert.ipynb
