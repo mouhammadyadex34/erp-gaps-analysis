@@ -12,7 +12,9 @@
 \usepackage{siunitx}
 \sisetup{group-separator={\,}, group-minimum-digits=4, detect-all}
 \usepackage{csquotes}
-\usepackage[backend=biber,style=numeric]{biblatex}
+% backend=bibtex et non biber : Tectonic embarque bibtex, alors que biber
+% est un binaire externe qu'il faudrait installer separement.
+\usepackage[backend=bibtex,style=numeric]{biblatex}
 \addbibresource{references.bib}
 \usepackage[hidelinks]{hyperref}
 

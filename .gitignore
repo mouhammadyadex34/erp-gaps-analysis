@@ -6,7 +6,9 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 
-# Sorties de compilation LaTeX
+# Sorties de compilation LaTeX, PDF compris : le document se recompile
+# depuis main.tex, le publier ferait double emploi.
+paper/*.pdf
 paper/*.aux
 paper/*.log
 paper/*.out

@@ -134,6 +134,18 @@ compte, aucune donnée personnelle au-delà du nom commercial de l'éditeur.
 Le corpus nettoyé (`data/processed/modules_clean.csv`, ~70 Mo) n'est pas versionné :
 il se régénère intégralement depuis les notebooks 01 et 02.
 
+## Compiler le document
+
+Le document se compile avec [Tectonic](https://tectonic-typesetting.github.io/),
+qui télécharge lui-même les paquets nécessaires :
+
+```bash
+cd paper && tectonic main.tex
+```
+
+La bibliographie utilise le moteur `bibtex` plutôt que `biber` : Tectonic embarque
+le premier, le second demanderait une installation séparée.
+
 ## Licence
 
 Code sous licence MIT. Les données collectées restent la propriété de leurs
