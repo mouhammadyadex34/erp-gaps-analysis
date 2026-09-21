@@ -29,6 +29,5 @@ notebooks/*.nbconvert.ipynb
 # notebooks/01_collecte.ipynb puis 02_nettoyage.ipynb.
 data/processed/modules_clean.csv
 
-# Les figures sont regenerees par 03_analyse.ipynb. Elles ne sont
-# versionnees qu'une fois produites sur le corpus complet.
-figures/
+# Les figures sont versionnees : elles sont produites sur le corpus complet
+# et le document LaTeX les inclut.

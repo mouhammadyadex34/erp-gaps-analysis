@@ -1,0 +1,1777 @@
+category,series,n_modules
+Tools,5.0,3
+Tools,6.0,21
+Tools,6.1,52
+Tools,7.0,115
+Tools,8.0,703
+Tools,9.0,642
+Tools,10.0,1082
+Tools,11.0,1453
+Tools,12.0,2280
+Tools,13.0,2454
+Tools,14.0,3615
+Tools,15.0,3545
+Tools,16.0,5177
+Tools,17.0,5600
+Tools,18.0,6142
+Tools,19.0,5222
+Extra Tools,5.0,3
+Extra Tools,6.0,21
+Extra Tools,6.1,51
+Extra Tools,7.0,114
+Extra Tools,8.0,699
+Extra Tools,9.0,638
+Extra Tools,10.0,1073
+Extra Tools,11.0,1435
+Extra Tools,12.0,2252
+Extra Tools,13.0,2399
+Extra Tools,14.0,3530
+Extra Tools,15.0,3456
+Extra Tools,16.0,5037
+Extra Tools,17.0,5452
+Extra Tools,18.0,6020
+Extra Tools,19.0,5102
+Sales,5.0,0
+Sales,6.0,8
+Sales,6.1,8
+Sales,7.0,67
+Sales,8.0,489
+Sales,9.0,390
+Sales,10.0,839
+Sales,11.0,1316
+Sales,12.0,1939
+Sales,13.0,2266
+Sales,14.0,2890
+Sales,15.0,2977
+Sales,16.0,3841
+Sales,17.0,4360
+Sales,18.0,5085
+Sales,19.0,5019
+Accounting,5.0,0
+Accounting,6.0,44
+Accounting,6.1,54
+Accounting,7.0,120
+Accounting,8.0,779
+Accounting,9.0,416
+Accounting,10.0,861
+Accounting,11.0,1024
+Accounting,12.0,1350
+Accounting,13.0,1473
+Accounting,14.0,1999
+Accounting,15.0,2071
+Accounting,16.0,2719
+Accounting,17.0,3297
+Accounting,18.0,4126
+Accounting,19.0,4095
+Point Of Sale,5.0,0
+Point Of Sale,6.0,0
+Point Of Sale,6.1,1
+Point Of Sale,7.0,10
+Point Of Sale,8.0,175
+Point Of Sale,9.0,260
+Point Of Sale,10.0,802
+Point Of Sale,11.0,852
+Point Of Sale,12.0,1451
+Point Of Sale,13.0,1489
+Point Of Sale,14.0,1652
+Point Of Sale,15.0,1876
+Point Of Sale,16.0,2451
+Point Of Sale,17.0,3073
+Point Of Sale,18.0,3456
+Point Of Sale,19.0,3527
+Website,5.0,0
+Website,6.0,0
+Website,6.1,0
+Website,7.0,0
+Website,8.0,465
+Website,9.0,467
+Website,10.0,813
+Website,11.0,905
+Website,12.0,1568
+Website,13.0,1680
+Website,14.0,1799
+Website,15.0,2024
+Website,16.0,2391
+Website,17.0,2538
+Website,18.0,2861
+Website,19.0,2783
+Purchase,5.0,0
+Purchase,6.0,4
+Purchase,6.1,6
+Purchase,7.0,34
+Purchase,8.0,235
+Purchase,9.0,174
+Purchase,10.0,344
+Purchase,11.0,526
+Purchase,12.0,786
+Purchase,13.0,954
+Purchase,14.0,1177
+Purchase,15.0,1243
+Purchase,16.0,1551
+Purchase,17.0,1783
+Purchase,18.0,1902
+Purchase,19.0,1809
+Inventory,5.0,0
+Inventory,6.0,2
+Inventory,6.1,1
+Inventory,7.0,53
+Inventory,8.0,172
+Inventory,9.0,68
+Inventory,10.0,69
+Inventory,11.0,101
+Inventory,12.0,143
+Inventory,13.0,304
+Inventory,14.0,488
+Inventory,15.0,489
+Inventory,16.0,866
+Inventory,17.0,1195
+Inventory,18.0,1663
+Inventory,19.0,1794
+Project,5.0,0
+Project,6.0,0
+Project,6.1,4
+Project,7.0,17
+Project,8.0,249
+Project,9.0,149
+Project,10.0,249
+Project,11.0,398
+Project,12.0,551
+Project,13.0,623
+Project,14.0,731
+Project,15.0,804
+Project,16.0,989
+Project,17.0,1134
+Project,18.0,1275
+Project,19.0,1799
+Productivity,5.0,0
+Productivity,6.0,0
+Productivity,6.1,0
+Productivity,7.0,0
+Productivity,8.0,4
+Productivity,9.0,7
+Productivity,10.0,21
+Productivity,11.0,44
+Productivity,12.0,117
+Productivity,13.0,153
+Productivity,14.0,241
+Productivity,15.0,315
+Productivity,16.0,603
+Productivity,17.0,928
+Productivity,18.0,1183
+Productivity,19.0,1471
+Warehouse,5.0,0
+Warehouse,6.0,5
+Warehouse,6.1,2
+Warehouse,7.0,15
+Warehouse,8.0,119
+Warehouse,9.0,133
+Warehouse,10.0,243
+Warehouse,11.0,370
+Warehouse,12.0,573
+Warehouse,13.0,586
+Warehouse,14.0,652
+Warehouse,15.0,734
+Warehouse,16.0,942
+Warehouse,17.0,1077
+Warehouse,18.0,1067
+Warehouse,19.0,913
+Ecommerce,5.0,0
+Ecommerce,6.0,0
+Ecommerce,6.1,0
+Ecommerce,7.0,0
+Ecommerce,8.0,65
+Ecommerce,9.0,126
+Ecommerce,10.0,146
+Ecommerce,11.0,203
+Ecommerce,12.0,312
+Ecommerce,13.0,341
+Ecommerce,14.0,384
+Ecommerce,15.0,415
+Ecommerce,16.0,627
+Ecommerce,17.0,863
+Ecommerce,18.0,997
+Ecommerce,19.0,1137
+Services,5.0,0
+Services,6.0,0
+Services,6.1,2
+Services,7.0,4
+Services,8.0,43
+Services,9.0,9
+Services,10.0,4
+Services,11.0,19
+Services,12.0,29
+Services,13.0,35
+Services,14.0,71
+Services,15.0,143
+Services,16.0,259
+Services,17.0,380
+Services,18.0,615
+Services,19.0,1308
+Purchases,5.0,0
+Purchases,6.0,4
+Purchases,6.1,5
+Purchases,7.0,18
+Purchases,8.0,164
+Purchases,9.0,111
+Purchases,10.0,196
+Purchases,11.0,295
+Purchases,12.0,452
+Purchases,13.0,458
+Purchases,14.0,547
+Purchases,15.0,611
+Purchases,16.0,801
+Purchases,17.0,862
+Purchases,18.0,896
+Purchases,19.0,838
+Manufacturing,5.0,0
+Manufacturing,6.0,0
+Manufacturing,6.1,0
+Manufacturing,7.0,0
+Manufacturing,8.0,9
+Manufacturing,9.0,12
+Manufacturing,10.0,20
+Manufacturing,11.0,42
+Manufacturing,12.0,101
+Manufacturing,13.0,155
+Manufacturing,14.0,256
+Manufacturing,15.0,350
+Manufacturing,16.0,535
+Manufacturing,17.0,761
+Manufacturing,18.0,913
+Manufacturing,19.0,1069
+Localization,5.0,0
+Localization,6.0,1
+Localization,6.1,1
+Localization,7.0,24
+Localization,8.0,196
+Localization,9.0,88
+Localization,10.0,128
+Localization,11.0,142
+Localization,12.0,160
+Localization,13.0,172
+Localization,14.0,211
+Localization,15.0,178
+Localization,16.0,251
+Localization,17.0,342
+Localization,18.0,708
+Localization,19.0,770
+Payment,5.0,0
+Payment,6.0,0
+Payment,6.1,0
+Payment,7.0,2
+Payment,8.0,22
+Payment,9.0,11
+Payment,10.0,41
+Payment,11.0,46
+Payment,12.0,137
+Payment,13.0,162
+Payment,14.0,220
+Payment,15.0,315
+Payment,16.0,440
+Payment,17.0,637
+Payment,18.0,767
+Payment,19.0,790
+Technical,5.0,0
+Technical,6.0,0
+Technical,6.1,1
+Technical,7.0,4
+Technical,8.0,9
+Technical,9.0,14
+Technical,10.0,44
+Technical,11.0,43
+Technical,12.0,94
+Technical,13.0,103
+Technical,14.0,203
+Technical,15.0,208
+Technical,16.0,308
+Technical,17.0,369
+Technical,18.0,569
+Technical,19.0,710
+Finance,5.0,0
+Finance,6.0,12
+Finance,6.1,21
+Finance,7.0,75
+Finance,8.0,410
+Finance,9.0,153
+Finance,10.0,209
+Finance,11.0,218
+Finance,12.0,211
+Finance,13.0,157
+Finance,14.0,188
+Finance,15.0,132
+Finance,16.0,208
+Finance,17.0,164
+Finance,18.0,295
+Finance,19.0,224
+CRM,5.0,0
+CRM,6.0,0
+CRM,6.1,0
+CRM,7.0,2
+CRM,8.0,37
+CRM,9.0,20
+CRM,10.0,37
+CRM,11.0,41
+CRM,12.0,70
+CRM,13.0,127
+CRM,14.0,201
+CRM,15.0,251
+CRM,16.0,371
+CRM,17.0,534
+CRM,18.0,601
+CRM,19.0,733
+Human Resources,5.0,0
+Human Resources,6.0,1
+Human Resources,6.1,2
+Human Resources,7.0,23
+Human Resources,8.0,79
+Human Resources,9.0,89
+Human Resources,10.0,149
+Human Resources,11.0,177
+Human Resources,12.0,195
+Human Resources,13.0,239
+Human Resources,14.0,267
+Human Resources,15.0,342
+Human Resources,16.0,445
+Human Resources,17.0,429
+Human Resources,18.0,530
+Human Resources,19.0,635
+Discuss,5.0,0
+Discuss,6.0,0
+Discuss,6.1,0
+Discuss,7.0,0
+Discuss,8.0,31
+Discuss,9.0,32
+Discuss,10.0,54
+Discuss,11.0,63
+Discuss,12.0,95
+Discuss,13.0,119
+Discuss,14.0,154
+Discuss,15.0,209
+Discuss,16.0,314
+Discuss,17.0,396
+Discuss,18.0,532
+Discuss,19.0,514
+Payment Providers,5.0,0
+Payment Providers,6.0,0
+Payment Providers,6.1,0
+Payment Providers,7.0,0
+Payment Providers,8.0,0
+Payment Providers,9.0,0
+Payment Providers,10.0,0
+Payment Providers,11.0,1
+Payment Providers,12.0,2
+Payment Providers,13.0,10
+Payment Providers,14.0,19
+Payment Providers,15.0,84
+Payment Providers,16.0,246
+Payment Providers,17.0,419
+Payment Providers,18.0,516
+Payment Providers,19.0,603
+Uncategorized,5.0,0
+Uncategorized,6.0,1
+Uncategorized,6.1,1
+Uncategorized,7.0,3
+Uncategorized,8.0,24
+Uncategorized,9.0,24
+Uncategorized,10.0,72
+Uncategorized,11.0,77
+Uncategorized,12.0,100
+Uncategorized,13.0,120
+Uncategorized,14.0,170
+Uncategorized,15.0,160
+Uncategorized,16.0,244
+Uncategorized,17.0,239
+Uncategorized,18.0,224
+Uncategorized,19.0,131
+Marketing,5.0,0
+Marketing,6.0,0
+Marketing,6.1,0
+Marketing,7.0,0
+Marketing,8.0,39
+Marketing,9.0,24
+Marketing,10.0,60
+Marketing,11.0,59
+Marketing,12.0,92
+Marketing,13.0,108
+Marketing,14.0,127
+Marketing,15.0,149
+Marketing,16.0,233
+Marketing,17.0,323
+Marketing,18.0,424
+Marketing,19.0,412
+Payroll,5.0,0
+Payroll,6.0,0
+Payroll,6.1,0
+Payroll,7.0,0
+Payroll,8.0,5
+Payroll,9.0,4
+Payroll,10.0,10
+Payroll,11.0,19
+Payroll,12.0,29
+Payroll,13.0,44
+Payroll,14.0,83
+Payroll,15.0,58
+Payroll,16.0,81
+Payroll,17.0,120
+Payroll,18.0,255
+Payroll,19.0,400
+Delivery,5.0,0
+Delivery,6.0,0
+Delivery,6.1,0
+Delivery,7.0,1
+Delivery,8.0,3
+Delivery,9.0,10
+Delivery,10.0,19
+Delivery,11.0,18
+Delivery,12.0,45
+Delivery,13.0,64
+Delivery,14.0,92
+Delivery,15.0,79
+Delivery,16.0,160
+Delivery,17.0,200
+Delivery,18.0,322
+Delivery,19.0,390
+Industries,5.0,0
+Industries,6.0,0
+Industries,6.1,0
+Industries,7.0,0
+Industries,8.0,4
+Industries,9.0,25
+Industries,10.0,40
+Industries,11.0,32
+Industries,12.0,53
+Industries,13.0,48
+Industries,14.0,128
+Industries,15.0,136
+Industries,16.0,382
+Industries,17.0,394
+Industries,18.0,427
+Industries,19.0,422
+Reporting,5.0,0
+Reporting,6.0,0
+Reporting,6.1,5
+Reporting,7.0,6
+Reporting,8.0,39
+Reporting,9.0,27
+Reporting,10.0,35
+Reporting,11.0,44
+Reporting,12.0,53
+Reporting,13.0,57
+Reporting,14.0,76
+Reporting,15.0,56
+Reporting,16.0,110
+Reporting,17.0,155
+Reporting,18.0,310
+Reporting,19.0,280
+Invoicing,5.0,0
+Invoicing,6.0,0
+Invoicing,6.1,0
+Invoicing,7.0,0
+Invoicing,8.0,31
+Invoicing,9.0,6
+Invoicing,10.0,8
+Invoicing,11.0,31
+Invoicing,12.0,88
+Invoicing,13.0,85
+Invoicing,14.0,108
+Invoicing,15.0,104
+Invoicing,16.0,112
+Invoicing,17.0,113
+Invoicing,18.0,118
+Invoicing,19.0,86
+Other,5.0,0
+Other,6.0,4
+Other,6.1,2
+Other,7.0,28
+Other,8.0,59
+Other,9.0,22
+Other,10.0,36
+Other,11.0,48
+Other,12.0,45
+Other,13.0,67
+Other,14.0,86
+Other,15.0,80
+Other,16.0,92
+Other,17.0,115
+Other,18.0,116
+Other,19.0,75
+Administration,5.0,0
+Administration,6.0,0
+Administration,6.1,0
+Administration,7.0,1
+Administration,8.0,7
+Administration,9.0,2
+Administration,10.0,1
+Administration,11.0,23
+Administration,12.0,14
+Administration,13.0,30
+Administration,14.0,69
+Administration,15.0,45
+Administration,16.0,70
+Administration,17.0,125
+Administration,18.0,146
+Administration,19.0,144
+Document Management,5.0,0
+Document Management,6.0,0
+Document Management,6.1,1
+Document Management,7.0,4
+Document Management,8.0,22
+Document Management,9.0,23
+Document Management,10.0,47
+Document Management,11.0,76
+Document Management,12.0,109
+Document Management,13.0,77
+Document Management,14.0,88
+Document Management,15.0,101
+Document Management,16.0,138
+Document Management,17.0,179
+Document Management,18.0,163
+Document Management,19.0,163
+Generic Modules,5.0,0
+Generic Modules,6.0,1
+Generic Modules,6.1,4
+Generic Modules,7.0,15
+Generic Modules,8.0,122
+Generic Modules,9.0,22
+Generic Modules,10.0,57
+Generic Modules,11.0,47
+Generic Modules,12.0,51
+Generic Modules,13.0,57
+Generic Modules,14.0,68
+Generic Modules,15.0,55
+Generic Modules,16.0,62
+Generic Modules,17.0,76
+Generic Modules,18.0,82
+Generic Modules,19.0,63
+Education,5.0,0
+Education,6.0,0
+Education,6.1,0
+Education,7.0,0
+Education,8.0,6
+Education,9.0,0
+Education,10.0,15
+Education,11.0,5
+Education,12.0,4
+Education,13.0,2
+Education,14.0,16
+Education,15.0,17
+Education,16.0,54
+Education,17.0,72
+Education,18.0,87
+Education,19.0,170
+Connector,5.0,0
+Connector,6.0,0
+Connector,6.1,0
+Connector,7.0,11
+Connector,8.0,7
+Connector,9.0,8
+Connector,10.0,16
+Connector,11.0,7
+Connector,12.0,30
+Connector,13.0,32
+Connector,14.0,40
+Connector,15.0,48
+Connector,16.0,59
+Connector,17.0,118
+Connector,18.0,148
+Connector,19.0,123
+Fleet,5.0,0
+Fleet,6.0,0
+Fleet,6.1,0
+Fleet,7.0,0
+Fleet,8.0,22
+Fleet,9.0,0
+Fleet,10.0,20
+Fleet,11.0,25
+Fleet,12.0,40
+Fleet,13.0,47
+Fleet,14.0,52
+Fleet,15.0,66
+Fleet,16.0,80
+Fleet,17.0,99
+Fleet,18.0,114
+Fleet,19.0,116
+Maintenance,5.0,0
+Maintenance,6.0,0
+Maintenance,6.1,0
+Maintenance,7.0,0
+Maintenance,8.0,0
+Maintenance,9.0,9
+Maintenance,10.0,8
+Maintenance,11.0,14
+Maintenance,12.0,26
+Maintenance,13.0,53
+Maintenance,14.0,70
+Maintenance,15.0,72
+Maintenance,16.0,89
+Maintenance,17.0,88
+Maintenance,18.0,111
+Maintenance,19.0,125
+Helpdesk,5.0,0
+Helpdesk,6.0,0
+Helpdesk,6.1,0
+Helpdesk,7.0,0
+Helpdesk,8.0,0
+Helpdesk,9.0,0
+Helpdesk,10.0,0
+Helpdesk,11.0,0
+Helpdesk,12.0,1
+Helpdesk,13.0,20
+Helpdesk,14.0,36
+Helpdesk,15.0,52
+Helpdesk,16.0,57
+Helpdesk,17.0,94
+Helpdesk,18.0,114
+Helpdesk,19.0,123
+Others,5.0,0
+Others,6.0,4
+Others,6.1,2
+Others,7.0,23
+Others,8.0,41
+Others,9.0,16
+Others,10.0,17
+Others,11.0,24
+Others,12.0,19
+Others,13.0,28
+Others,14.0,35
+Others,15.0,28
+Others,16.0,46
+Others,17.0,47
+Others,18.0,48
+Others,19.0,24
+Documents,5.0,0
+Documents,6.0,0
+Documents,6.1,0
+Documents,7.0,0
+Documents,8.0,0
+Documents,9.0,2
+Documents,10.0,1
+Documents,11.0,1
+Documents,12.0,3
+Documents,13.0,3
+Documents,14.0,20
+Documents,15.0,28
+Documents,16.0,36
+Documents,17.0,78
+Documents,18.0,107
+Documents,19.0,136
+Real Estate,5.0,0
+Real Estate,6.0,0
+Real Estate,6.1,0
+Real Estate,7.0,0
+Real Estate,8.0,7
+Real Estate,9.0,0
+Real Estate,10.0,10
+Real Estate,11.0,11
+Real Estate,12.0,24
+Real Estate,13.0,26
+Real Estate,14.0,33
+Real Estate,15.0,34
+Real Estate,16.0,39
+Real Estate,17.0,58
+Real Estate,18.0,108
+Real Estate,19.0,118
+Localisation,5.0,0
+Localisation,6.0,0
+Localisation,6.1,1
+Localisation,7.0,22
+Localisation,8.0,33
+Localisation,9.0,7
+Localisation,10.0,28
+Localisation,11.0,17
+Localisation,12.0,25
+Localisation,13.0,7
+Localisation,14.0,26
+Localisation,15.0,18
+Localisation,16.0,50
+Localisation,17.0,20
+Localisation,18.0,41
+Localisation,19.0,24
+Timesheets,5.0,0
+Timesheets,6.0,0
+Timesheets,6.1,0
+Timesheets,7.0,0
+Timesheets,8.0,2
+Timesheets,9.0,2
+Timesheets,10.0,2
+Timesheets,11.0,0
+Timesheets,12.0,9
+Timesheets,13.0,27
+Timesheets,14.0,41
+Timesheets,15.0,59
+Timesheets,16.0,59
+Timesheets,17.0,84
+Timesheets,18.0,100
+Timesheets,19.0,108
+Time Off,5.0,0
+Time Off,6.0,0
+Time Off,6.1,0
+Time Off,7.0,0
+Time Off,8.0,0
+Time Off,9.0,0
+Time Off,10.0,0
+Time Off,11.0,0
+Time Off,12.0,0
+Time Off,13.0,10
+Time Off,14.0,16
+Time Off,15.0,16
+Time Off,16.0,21
+Time Off,17.0,31
+Time Off,18.0,44
+Time Off,19.0,115
+Field Service,5.0,0
+Field Service,6.0,0
+Field Service,6.1,0
+Field Service,7.0,0
+Field Service,8.0,0
+Field Service,9.0,0
+Field Service,10.0,0
+Field Service,11.0,16
+Field Service,12.0,49
+Field Service,13.0,22
+Field Service,14.0,46
+Field Service,15.0,51
+Field Service,16.0,36
+Field Service,17.0,25
+Field Service,18.0,39
+Field Service,19.0,66
+Agriculture,5.0,0
+Agriculture,6.0,0
+Agriculture,6.1,0
+Agriculture,7.0,0
+Agriculture,8.0,0
+Agriculture,9.0,0
+Agriculture,10.0,0
+Agriculture,11.0,0
+Agriculture,12.0,0
+Agriculture,13.0,1
+Agriculture,14.0,2
+Agriculture,15.0,2
+Agriculture,16.0,1
+Agriculture,17.0,4
+Agriculture,18.0,10
+Agriculture,19.0,135
+Construction,5.0,0
+Construction,6.0,0
+Construction,6.1,0
+Construction,7.0,0
+Construction,8.0,6
+Construction,9.0,0
+Construction,10.0,0
+Construction,11.0,1
+Construction,12.0,1
+Construction,13.0,9
+Construction,14.0,9
+Construction,15.0,3
+Construction,16.0,10
+Construction,17.0,19
+Construction,18.0,36
+Construction,19.0,127
+Events,5.0,0
+Events,6.0,0
+Events,6.1,0
+Events,7.0,0
+Events,8.0,23
+Events,9.0,5
+Events,10.0,2
+Events,11.0,2
+Events,12.0,8
+Events,13.0,12
+Events,14.0,39
+Events,15.0,28
+Events,16.0,35
+Events,17.0,37
+Events,18.0,55
+Events,19.0,63
+Customizations,5.0,0
+Customizations,6.0,0
+Customizations,6.1,0
+Customizations,7.0,0
+Customizations,8.0,0
+Customizations,9.0,1
+Customizations,10.0,8
+Customizations,11.0,0
+Customizations,12.0,6
+Customizations,13.0,29
+Customizations,14.0,19
+Customizations,15.0,19
+Customizations,16.0,32
+Customizations,17.0,46
+Customizations,18.0,53
+Customizations,19.0,45
+Security,5.0,0
+Security,6.0,0
+Security,6.1,0
+Security,7.0,1
+Security,8.0,14
+Security,9.0,2
+Security,10.0,3
+Security,11.0,2
+Security,12.0,2
+Security,13.0,6
+Security,14.0,9
+Security,15.0,21
+Security,16.0,25
+Security,17.0,49
+Security,18.0,95
+Security,19.0,91
+Healthcare,5.0,0
+Healthcare,6.0,0
+Healthcare,6.1,0
+Healthcare,7.0,0
+Healthcare,8.0,0
+Healthcare,9.0,1
+Healthcare,10.0,1
+Healthcare,11.0,18
+Healthcare,12.0,18
+Healthcare,13.0,0
+Healthcare,14.0,19
+Healthcare,15.0,20
+Healthcare,16.0,26
+Healthcare,17.0,46
+Healthcare,18.0,76
+Healthcare,19.0,77
+Quality,5.0,0
+Quality,6.0,0
+Quality,6.1,0
+Quality,7.0,3
+Quality,8.0,12
+Quality,9.0,2
+Quality,10.0,6
+Quality,11.0,7
+Quality,12.0,4
+Quality,13.0,12
+Quality,14.0,16
+Quality,15.0,17
+Quality,16.0,31
+Quality,17.0,33
+Quality,18.0,64
+Quality,19.0,71
+Knowledge,5.0,0
+Knowledge,6.0,0
+Knowledge,6.1,0
+Knowledge,7.0,13
+Knowledge,8.0,57
+Knowledge,9.0,14
+Knowledge,10.0,11
+Knowledge,11.0,14
+Knowledge,12.0,14
+Knowledge,13.0,8
+Knowledge,14.0,10
+Knowledge,15.0,8
+Knowledge,16.0,14
+Knowledge,17.0,23
+Knowledge,18.0,29
+Knowledge,19.0,21
+Expenses,5.0,0
+Expenses,6.0,0
+Expenses,6.1,0
+Expenses,7.0,0
+Expenses,8.0,0
+Expenses,9.0,0
+Expenses,10.0,0
+Expenses,11.0,0
+Expenses,12.0,4
+Expenses,13.0,12
+Expenses,14.0,19
+Expenses,15.0,27
+Expenses,16.0,40
+Expenses,17.0,56
+Expenses,18.0,72
+Expenses,19.0,89
+Integration,5.0,0
+Integration,6.0,0
+Integration,6.1,0
+Integration,7.0,0
+Integration,8.0,0
+Integration,9.0,2
+Integration,10.0,0
+Integration,11.0,1
+Integration,12.0,5
+Integration,13.0,6
+Integration,14.0,9
+Integration,15.0,19
+Integration,16.0,37
+Integration,17.0,55
+Integration,18.0,80
+Integration,19.0,76
+Recruitment,5.0,0
+Recruitment,6.0,0
+Recruitment,6.1,0
+Recruitment,7.0,0
+Recruitment,8.0,0
+Recruitment,9.0,0
+Recruitment,10.0,0
+Recruitment,11.0,1
+Recruitment,12.0,5
+Recruitment,13.0,11
+Recruitment,14.0,23
+Recruitment,15.0,24
+Recruitment,16.0,35
+Recruitment,17.0,47
+Recruitment,18.0,56
+Recruitment,19.0,71
+Hotel,5.0,0
+Hotel,6.0,0
+Hotel,6.1,0
+Hotel,7.0,7
+Hotel,8.0,8
+Hotel,9.0,8
+Hotel,10.0,9
+Hotel,11.0,8
+Hotel,12.0,6
+Hotel,13.0,13
+Hotel,14.0,15
+Hotel,15.0,14
+Hotel,16.0,11
+Hotel,17.0,20
+Hotel,18.0,61
+Hotel,19.0,48
+Logistics,5.0,0
+Logistics,6.0,0
+Logistics,6.1,0
+Logistics,7.0,0
+Logistics,8.0,3
+Logistics,9.0,7
+Logistics,10.0,7
+Logistics,11.0,4
+Logistics,12.0,8
+Logistics,13.0,10
+Logistics,14.0,9
+Logistics,15.0,8
+Logistics,16.0,18
+Logistics,17.0,40
+Logistics,18.0,49
+Logistics,19.0,56
+Approvals,5.0,0
+Approvals,6.0,0
+Approvals,6.1,0
+Approvals,7.0,0
+Approvals,8.0,0
+Approvals,9.0,0
+Approvals,10.0,0
+Approvals,11.0,0
+Approvals,12.0,3
+Approvals,13.0,7
+Approvals,14.0,10
+Approvals,15.0,26
+Approvals,16.0,32
+Approvals,17.0,58
+Approvals,18.0,58
+Approvals,19.0,52
+Portal,5.0,0
+Portal,6.0,0
+Portal,6.1,0
+Portal,7.0,0
+Portal,8.0,6
+Portal,9.0,6
+Portal,10.0,4
+Portal,11.0,4
+Portal,12.0,7
+Portal,13.0,12
+Portal,14.0,12
+Portal,15.0,17
+Portal,16.0,24
+Portal,17.0,36
+Portal,18.0,46
+Portal,19.0,47
+Repair,5.0,0
+Repair,6.0,0
+Repair,6.1,0
+Repair,7.0,0
+Repair,8.0,3
+Repair,9.0,0
+Repair,10.0,0
+Repair,11.0,3
+Repair,12.0,3
+Repair,13.0,6
+Repair,14.0,22
+Repair,15.0,22
+Repair,16.0,33
+Repair,17.0,34
+Repair,18.0,40
+Repair,19.0,45
+Subscription,5.0,0
+Subscription,6.0,0
+Subscription,6.1,0
+Subscription,7.0,0
+Subscription,8.0,0
+Subscription,9.0,0
+Subscription,10.0,0
+Subscription,11.0,1
+Subscription,12.0,1
+Subscription,13.0,7
+Subscription,14.0,8
+Subscription,15.0,13
+Subscription,16.0,11
+Subscription,17.0,20
+Subscription,18.0,37
+Subscription,19.0,60
+Social Marketing,5.0,0
+Social Marketing,6.0,0
+Social Marketing,6.1,0
+Social Marketing,7.0,0
+Social Marketing,8.0,0
+Social Marketing,9.0,0
+Social Marketing,10.0,0
+Social Marketing,11.0,0
+Social Marketing,12.0,0
+Social Marketing,13.0,4
+Social Marketing,14.0,5
+Social Marketing,15.0,7
+Social Marketing,16.0,10
+Social Marketing,17.0,25
+Social Marketing,18.0,53
+Social Marketing,19.0,57
+Shipping,5.0,0
+Shipping,6.0,0
+Shipping,6.1,0
+Shipping,7.0,0
+Shipping,8.0,0
+Shipping,9.0,1
+Shipping,10.0,1
+Shipping,11.0,3
+Shipping,12.0,3
+Shipping,13.0,14
+Shipping,14.0,15
+Shipping,15.0,24
+Shipping,16.0,25
+Shipping,17.0,24
+Shipping,18.0,36
+Shipping,19.0,33
+PLM,5.0,0
+PLM,6.0,0
+PLM,6.1,0
+PLM,7.0,0
+PLM,8.0,0
+PLM,9.0,0
+PLM,10.0,0
+PLM,11.0,0
+PLM,12.0,0
+PLM,13.0,0
+PLM,14.0,1
+PLM,15.0,4
+PLM,16.0,32
+PLM,17.0,42
+PLM,18.0,49
+PLM,19.0,54
+Email Marketing,5.0,0
+Email Marketing,6.0,0
+Email Marketing,6.1,0
+Email Marketing,7.0,0
+Email Marketing,8.0,0
+Email Marketing,9.0,0
+Email Marketing,10.0,4
+Email Marketing,11.0,5
+Email Marketing,12.0,7
+Email Marketing,13.0,11
+Email Marketing,14.0,15
+Email Marketing,15.0,19
+Email Marketing,16.0,29
+Email Marketing,17.0,38
+Email Marketing,18.0,46
+Email Marketing,19.0,39
+Transport,5.0,0
+Transport,6.0,0
+Transport,6.1,0
+Transport,7.0,1
+Transport,8.0,1
+Transport,9.0,0
+Transport,10.0,11
+Transport,11.0,6
+Transport,12.0,4
+Transport,13.0,6
+Transport,14.0,5
+Transport,15.0,1
+Transport,16.0,1
+Transport,17.0,2
+Transport,18.0,4
+Transport,19.0,53
+Usability,5.0,0
+Usability,6.0,0
+Usability,6.1,0
+Usability,7.0,0
+Usability,8.0,0
+Usability,9.0,1
+Usability,10.0,1
+Usability,11.0,1
+Usability,12.0,1
+Usability,13.0,0
+Usability,14.0,3
+Usability,15.0,6
+Usability,16.0,9
+Usability,17.0,48
+Usability,18.0,67
+Usability,19.0,52
+WhatsApp,5.0,0
+WhatsApp,6.0,0
+WhatsApp,6.1,0
+WhatsApp,7.0,0
+WhatsApp,8.0,0
+WhatsApp,9.0,0
+WhatsApp,10.0,1
+WhatsApp,11.0,1
+WhatsApp,12.0,1
+WhatsApp,13.0,1
+WhatsApp,14.0,4
+WhatsApp,15.0,3
+WhatsApp,16.0,4
+WhatsApp,17.0,20
+WhatsApp,18.0,40
+WhatsApp,19.0,46
+Tutorial,5.0,0
+Tutorial,6.0,0
+Tutorial,6.1,0
+Tutorial,7.0,0
+Tutorial,8.0,0
+Tutorial,9.0,0
+Tutorial,10.0,0
+Tutorial,11.0,0
+Tutorial,12.0,20
+Tutorial,13.0,31
+Tutorial,14.0,42
+Tutorial,15.0,40
+Tutorial,16.0,17
+Tutorial,17.0,14
+Tutorial,18.0,15
+Tutorial,19.0,15
+Rental,5.0,0
+Rental,6.0,0
+Rental,6.1,0
+Rental,7.0,0
+Rental,8.0,0
+Rental,9.0,0
+Rental,10.0,1
+Rental,11.0,1
+Rental,12.0,6
+Rental,13.0,4
+Rental,14.0,9
+Rental,15.0,3
+Rental,16.0,6
+Rental,17.0,12
+Rental,18.0,36
+Rental,19.0,46
+Subscriptions,5.0,0
+Subscriptions,6.0,0
+Subscriptions,6.1,0
+Subscriptions,7.0,0
+Subscriptions,8.0,0
+Subscriptions,9.0,0
+Subscriptions,10.0,0
+Subscriptions,11.0,0
+Subscriptions,12.0,0
+Subscriptions,13.0,2
+Subscriptions,14.0,4
+Subscriptions,15.0,7
+Subscriptions,16.0,6
+Subscriptions,17.0,16
+Subscriptions,18.0,28
+Subscriptions,19.0,51
+Extra Rights,5.0,0
+Extra Rights,6.0,0
+Extra Rights,6.1,0
+Extra Rights,7.0,0
+Extra Rights,8.0,3
+Extra Rights,9.0,5
+Extra Rights,10.0,13
+Extra Rights,11.0,11
+Extra Rights,12.0,19
+Extra Rights,13.0,19
+Extra Rights,14.0,27
+Extra Rights,15.0,21
+Extra Rights,16.0,26
+Extra Rights,17.0,28
+Extra Rights,18.0,17
+Extra Rights,19.0,17
+eLearning,5.0,0
+eLearning,6.0,0
+eLearning,6.1,0
+eLearning,7.0,0
+eLearning,8.0,0
+eLearning,9.0,0
+eLearning,10.0,1
+eLearning,11.0,1
+eLearning,12.0,1
+eLearning,13.0,6
+eLearning,14.0,10
+eLearning,15.0,11
+eLearning,16.0,16
+eLearning,17.0,20
+eLearning,18.0,24
+eLearning,19.0,31
+Sign,5.0,0
+Sign,6.0,0
+Sign,6.1,0
+Sign,7.0,0
+Sign,8.0,1
+Sign,9.0,0
+Sign,10.0,1
+Sign,11.0,1
+Sign,12.0,13
+Sign,13.0,9
+Sign,14.0,12
+Sign,15.0,10
+Sign,16.0,15
+Sign,17.0,20
+Sign,18.0,24
+Sign,19.0,24
+API,5.0,0
+API,6.0,0
+API,6.1,0
+API,7.0,0
+API,8.0,1
+API,9.0,1
+API,10.0,4
+API,11.0,5
+API,12.0,8
+API,13.0,7
+API,14.0,10
+API,15.0,6
+API,16.0,17
+API,17.0,15
+API,18.0,19
+API,19.0,24
+Appointment,5.0,0
+Appointment,6.0,0
+Appointment,6.1,0
+Appointment,7.0,0
+Appointment,8.0,0
+Appointment,9.0,0
+Appointment,10.0,0
+Appointment,11.0,0
+Appointment,12.0,6
+Appointment,13.0,8
+Appointment,14.0,6
+Appointment,15.0,18
+Appointment,16.0,18
+Appointment,17.0,16
+Appointment,18.0,22
+Appointment,19.0,25
+Planning,5.0,0
+Planning,6.0,0
+Planning,6.1,0
+Planning,7.0,0
+Planning,8.0,0
+Planning,9.0,0
+Planning,10.0,0
+Planning,11.0,0
+Planning,12.0,0
+Planning,13.0,4
+Planning,14.0,3
+Planning,15.0,4
+Planning,16.0,8
+Planning,17.0,18
+Planning,18.0,22
+Planning,19.0,25
+Surveys,5.0,0
+Surveys,6.0,0
+Surveys,6.1,0
+Surveys,7.0,0
+Surveys,8.0,0
+Surveys,9.0,0
+Surveys,10.0,0
+Surveys,11.0,0
+Surveys,12.0,0
+Surveys,13.0,2
+Surveys,14.0,5
+Surveys,15.0,7
+Surveys,16.0,14
+Surveys,17.0,23
+Surveys,18.0,26
+Surveys,19.0,29
+Backend,5.0,0
+Backend,6.0,0
+Backend,6.1,0
+Backend,7.0,0
+Backend,8.0,0
+Backend,9.0,1
+Backend,10.0,2
+Backend,11.0,1
+Backend,12.0,5
+Backend,13.0,6
+Backend,14.0,4
+Backend,15.0,5
+Backend,16.0,11
+Backend,17.0,10
+Backend,18.0,11
+Backend,19.0,11
+Utilities,5.0,0
+Utilities,6.0,0
+Utilities,6.1,0
+Utilities,7.0,0
+Utilities,8.0,4
+Utilities,9.0,0
+Utilities,10.0,1
+Utilities,11.0,3
+Utilities,12.0,1
+Utilities,13.0,7
+Utilities,14.0,3
+Utilities,15.0,4
+Utilities,16.0,5
+Utilities,17.0,5
+Utilities,18.0,6
+Utilities,19.0,7
+Hidden,5.0,0
+Hidden,6.0,0
+Hidden,6.1,0
+Hidden,7.0,0
+Hidden,8.0,1
+Hidden,9.0,1
+Hidden,10.0,1
+Hidden,11.0,0
+Hidden,12.0,0
+Hidden,13.0,0
+Hidden,14.0,1
+Hidden,15.0,1
+Hidden,16.0,1
+Hidden,17.0,1
+Hidden,18.0,1
+Hidden,19.0,20
+Barcode,5.0,0
+Barcode,6.0,0
+Barcode,6.1,0
+Barcode,7.0,0
+Barcode,8.0,3
+Barcode,9.0,3
+Barcode,10.0,3
+Barcode,11.0,4
+Barcode,12.0,5
+Barcode,13.0,5
+Barcode,14.0,6
+Barcode,15.0,5
+Barcode,16.0,7
+Barcode,17.0,8
+Barcode,18.0,12
+Barcode,19.0,11
+SMS Marketing,5.0,0
+SMS Marketing,6.0,0
+SMS Marketing,6.1,0
+SMS Marketing,7.0,0
+SMS Marketing,8.0,0
+SMS Marketing,9.0,0
+SMS Marketing,10.0,0
+SMS Marketing,11.0,0
+SMS Marketing,12.0,0
+SMS Marketing,13.0,0
+SMS Marketing,14.0,1
+SMS Marketing,15.0,1
+SMS Marketing,16.0,2
+SMS Marketing,17.0,2
+SMS Marketing,18.0,7
+SMS Marketing,19.0,8
+Theme,5.0,0
+Theme,6.0,0
+Theme,6.1,0
+Theme,7.0,0
+Theme,8.0,0
+Theme,9.0,1
+Theme,10.0,1
+Theme,11.0,2
+Theme,12.0,3
+Theme,13.0,3
+Theme,14.0,4
+Theme,15.0,2
+Theme,16.0,3
+Theme,17.0,6
+Theme,18.0,10
+Theme,19.0,8
+IoT,5.0,0
+IoT,6.0,0
+IoT,6.1,0
+IoT,7.0,0
+IoT,8.0,0
+IoT,9.0,0
+IoT,10.0,0
+IoT,11.0,1
+IoT,12.0,0
+IoT,13.0,5
+IoT,14.0,5
+IoT,15.0,5
+IoT,16.0,6
+IoT,17.0,5
+IoT,18.0,8
+IoT,19.0,5
+Government,5.0,0
+Government,6.0,0
+Government,6.1,0
+Government,7.0,0
+Government,8.0,0
+Government,9.0,0
+Government,10.0,0
+Government,11.0,0
+Government,12.0,0
+Government,13.0,0
+Government,14.0,14
+Government,15.0,0
+Government,16.0,13
+Government,17.0,0
+Government,18.0,0
+Government,19.0,0
+Artificial Intelligence,5.0,0
+Artificial Intelligence,6.0,0
+Artificial Intelligence,6.1,0
+Artificial Intelligence,7.0,0
+Artificial Intelligence,8.0,0
+Artificial Intelligence,9.0,0
+Artificial Intelligence,10.0,0
+Artificial Intelligence,11.0,0
+Artificial Intelligence,12.0,0
+Artificial Intelligence,13.0,0
+Artificial Intelligence,14.0,0
+Artificial Intelligence,15.0,0
+Artificial Intelligence,16.0,1
+Artificial Intelligence,17.0,2
+Artificial Intelligence,18.0,4
+Artificial Intelligence,19.0,9
+Live Chat,5.0,0
+Live Chat,6.0,0
+Live Chat,6.1,0
+Live Chat,7.0,0
+Live Chat,8.0,0
+Live Chat,9.0,0
+Live Chat,10.0,0
+Live Chat,11.0,0
+Live Chat,12.0,0
+Live Chat,13.0,0
+Live Chat,14.0,1
+Live Chat,15.0,1
+Live Chat,16.0,3
+Live Chat,17.0,5
+Live Chat,18.0,5
+Live Chat,19.0,9
+Restaurant,5.0,0
+Restaurant,6.0,0
+Restaurant,6.1,0
+Restaurant,7.0,2
+Restaurant,8.0,3
+Restaurant,9.0,3
+Restaurant,10.0,3
+Restaurant,11.0,3
+Restaurant,12.0,1
+Restaurant,13.0,2
+Restaurant,14.0,2
+Restaurant,15.0,2
+Restaurant,16.0,0
+Restaurant,17.0,4
+Restaurant,18.0,3
+Restaurant,19.0,3
+Studio,5.0,0
+Studio,6.0,0
+Studio,6.1,0
+Studio,7.0,0
+Studio,8.0,0
+Studio,9.0,0
+Studio,10.0,0
+Studio,11.0,0
+Studio,12.0,1
+Studio,13.0,0
+Studio,14.0,2
+Studio,15.0,2
+Studio,16.0,1
+Studio,17.0,3
+Studio,18.0,3
+Studio,19.0,5
+Blog,5.0,0
+Blog,6.0,0
+Blog,6.1,0
+Blog,7.0,0
+Blog,8.0,0
+Blog,9.0,0
+Blog,10.0,2
+Blog,11.0,0
+Blog,12.0,1
+Blog,13.0,2
+Blog,14.0,1
+Blog,15.0,1
+Blog,16.0,2
+Blog,17.0,4
+Blog,18.0,7
+Blog,19.0,9
+VoIP,5.0,0
+VoIP,6.0,0
+VoIP,6.1,0
+VoIP,7.0,0
+VoIP,8.0,0
+VoIP,9.0,0
+VoIP,10.0,0
+VoIP,11.0,0
+VoIP,12.0,0
+VoIP,13.0,0
+VoIP,14.0,0
+VoIP,15.0,0
+VoIP,16.0,0
+VoIP,17.0,5
+VoIP,18.0,10
+VoIP,19.0,6
+Migration,5.0,0
+Migration,6.0,0
+Migration,6.1,0
+Migration,7.0,0
+Migration,8.0,0
+Migration,9.0,0
+Migration,10.0,0
+Migration,11.0,0
+Migration,12.0,0
+Migration,13.0,0
+Migration,14.0,3
+Migration,15.0,1
+Migration,16.0,1
+Migration,17.0,1
+Migration,18.0,6
+Migration,19.0,9
+Marketing Automation,5.0,0
+Marketing Automation,6.0,0
+Marketing Automation,6.1,0
+Marketing Automation,7.0,0
+Marketing Automation,8.0,0
+Marketing Automation,9.0,0
+Marketing Automation,10.0,0
+Marketing Automation,11.0,0
+Marketing Automation,12.0,0
+Marketing Automation,13.0,0
+Marketing Automation,14.0,0
+Marketing Automation,15.0,0
+Marketing Automation,16.0,0
+Marketing Automation,17.0,5
+Marketing Automation,18.0,3
+Marketing Automation,19.0,7
+Website Theme,5.0,0
+Website Theme,6.0,0
+Website Theme,6.1,0
+Website Theme,7.0,0
+Website Theme,8.0,0
+Website Theme,9.0,1
+Website Theme,10.0,1
+Website Theme,11.0,1
+Website Theme,12.0,2
+Website Theme,13.0,1
+Website Theme,14.0,1
+Website Theme,15.0,0
+Website Theme,16.0,0
+Website Theme,17.0,2
+Website Theme,18.0,7
+Website Theme,19.0,3
+Dashboards,5.0,0
+Dashboards,6.0,0
+Dashboards,6.1,0
+Dashboards,7.0,0
+Dashboards,8.0,0
+Dashboards,9.0,0
+Dashboards,10.0,0
+Dashboards,11.0,1
+Dashboards,12.0,1
+Dashboards,13.0,1
+Dashboards,14.0,1
+Dashboards,15.0,1
+Dashboards,16.0,3
+Dashboards,17.0,3
+Dashboards,18.0,5
+Dashboards,19.0,3
+Backup,5.0,0
+Backup,6.0,0
+Backup,6.1,0
+Backup,7.0,0
+Backup,8.0,2
+Backup,9.0,2
+Backup,10.0,4
+Backup,11.0,4
+Backup,12.0,3
+Backup,13.0,3
+Backup,14.0,2
+Backup,15.0,3
+Backup,16.0,2
+Backup,17.0,3
+Backup,18.0,3
+Backup,19.0,3
+Mobile,5.0,0
+Mobile,6.0,0
+Mobile,6.1,0
+Mobile,7.0,0
+Mobile,8.0,3
+Mobile,9.0,0
+Mobile,10.0,1
+Mobile,11.0,2
+Mobile,12.0,0
+Mobile,13.0,0
+Mobile,14.0,0
+Mobile,15.0,0
+Mobile,16.0,0
+Mobile,17.0,0
+Mobile,18.0,1
+Mobile,19.0,1
+Data Cleaning,5.0,0
+Data Cleaning,6.0,0
+Data Cleaning,6.1,0
+Data Cleaning,7.0,0
+Data Cleaning,8.0,0
+Data Cleaning,9.0,0
+Data Cleaning,10.0,0
+Data Cleaning,11.0,0
+Data Cleaning,12.0,0
+Data Cleaning,13.0,0
+Data Cleaning,14.0,1
+Data Cleaning,15.0,1
+Data Cleaning,16.0,2
+Data Cleaning,17.0,5
+Data Cleaning,18.0,4
+Data Cleaning,19.0,3
+Internet of Things,5.0,0
+Internet of Things,6.0,0
+Internet of Things,6.1,0
+Internet of Things,7.0,0
+Internet of Things,8.0,0
+Internet of Things,9.0,0
+Internet of Things,10.0,0
+Internet of Things,11.0,0
+Internet of Things,12.0,0
+Internet of Things,13.0,1
+Internet of Things,14.0,1
+Internet of Things,15.0,1
+Internet of Things,16.0,1
+Internet of Things,17.0,2
+Internet of Things,18.0,3
+Internet of Things,19.0,2
+Lunch,5.0,0
+Lunch,6.0,0
+Lunch,6.1,0
+Lunch,7.0,0
+Lunch,8.0,0
+Lunch,9.0,0
+Lunch,10.0,0
+Lunch,11.0,0
+Lunch,12.0,0
+Lunch,13.0,1
+Lunch,14.0,2
+Lunch,15.0,2
+Lunch,16.0,4
+Lunch,17.0,4
+Lunch,18.0,3
+Lunch,19.0,4
+Notes,5.0,0
+Notes,6.0,0
+Notes,6.1,0
+Notes,7.0,0
+Notes,8.0,0
+Notes,9.0,0
+Notes,10.0,0
+Notes,11.0,0
+Notes,12.0,0
+Notes,13.0,1
+Notes,14.0,5
+Notes,15.0,6
+Notes,16.0,5
+Notes,17.0,5
+Notes,18.0,5
+Notes,19.0,6
+Appraisals,5.0,0
+Appraisals,6.0,0
+Appraisals,6.1,0
+Appraisals,7.0,0
+Appraisals,8.0,0
+Appraisals,9.0,0
+Appraisals,10.0,0
+Appraisals,11.0,0
+Appraisals,12.0,0
+Appraisals,13.0,0
+Appraisals,14.0,0
+Appraisals,15.0,0
+Appraisals,16.0,0
+Appraisals,17.0,4
+Appraisals,18.0,3
+Appraisals,19.0,3
+Frontend,5.0,0
+Frontend,6.0,0
+Frontend,6.1,0
+Frontend,7.0,0
+Frontend,8.0,0
+Frontend,9.0,0
+Frontend,10.0,0
+Frontend,11.0,0
+Frontend,12.0,4
+Frontend,13.0,4
+Frontend,14.0,4
+Frontend,15.0,4
+Frontend,16.0,4
+Frontend,17.0,4
+Frontend,18.0,4
+Frontend,19.0,5
+Spreadsheet,5.0,0
+Spreadsheet,6.0,0
+Spreadsheet,6.1,0
+Spreadsheet,7.0,0
+Spreadsheet,8.0,0
+Spreadsheet,9.0,0
+Spreadsheet,10.0,0
+Spreadsheet,11.0,0
+Spreadsheet,12.0,0
+Spreadsheet,13.0,1
+Spreadsheet,14.0,1
+Spreadsheet,15.0,1
+Spreadsheet,16.0,1
+Spreadsheet,17.0,0
+Spreadsheet,18.0,1
+Spreadsheet,19.0,1
+Forum,5.0,0
+Forum,6.0,0
+Forum,6.1,0
+Forum,7.0,0
+Forum,8.0,0
+Forum,9.0,0
+Forum,10.0,0
+Forum,11.0,0
+Forum,12.0,0
+Forum,13.0,1
+Forum,14.0,1
+Forum,15.0,1
+Forum,16.0,1
+Forum,17.0,2
+Forum,18.0,2
+Forum,19.0,0
+Mass Mailing,5.0,0
+Mass Mailing,6.0,0
+Mass Mailing,6.1,0
+Mass Mailing,7.0,0
+Mass Mailing,8.0,0
+Mass Mailing,9.0,0
+Mass Mailing,10.0,0
+Mass Mailing,11.0,0
+Mass Mailing,12.0,0
+Mass Mailing,13.0,0
+Mass Mailing,14.0,0
+Mass Mailing,15.0,1
+Mass Mailing,16.0,1
+Mass Mailing,17.0,2
+Mass Mailing,18.0,1
+Mass Mailing,19.0,1
+Nonprofit,5.0,0
+Nonprofit,6.0,0
+Nonprofit,6.1,0
+Nonprofit,7.0,0
+Nonprofit,8.0,0
+Nonprofit,9.0,0
+Nonprofit,10.0,0
+Nonprofit,11.0,0
+Nonprofit,12.0,0
+Nonprofit,13.0,0
+Nonprofit,14.0,0
+Nonprofit,15.0,0
+Nonprofit,16.0,0
+Nonprofit,17.0,1
+Nonprofit,18.0,2
+Nonprofit,19.0,2
+Widgets,5.0,0
+Widgets,6.0,0
+Widgets,6.1,0
+Widgets,7.0,0
+Widgets,8.0,1
+Widgets,9.0,0
+Widgets,10.0,0
+Widgets,11.0,0
+Widgets,12.0,0
+Widgets,13.0,0
+Widgets,14.0,0
+Widgets,15.0,0
+Widgets,16.0,0
+Widgets,17.0,1
+Widgets,18.0,1
+Widgets,19.0,1
