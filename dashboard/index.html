@@ -1,0 +1,452 @@
+<title>La carte des manques</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+  :root{
+    --paper:#E6EBE7; --panel:#DCE3DD; --sunk:#D2DAD4;
+    --ink:#14211E; --ink2:#55635E; --ink3:#7C8A85;
+    --rule:#B7C3BC; --rule-soft:#C9D3CD;
+    --accent:#0E6B63; --accent-soft:#9BC0BB; --accent-wash:#C6D9D5;
+    --signal:#B14A15; --signal-soft:#E0BCA4;
+    --focus:#0E6B63;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E1513; --panel:#16201D; --sunk:#1D2825;
+      --ink:#E3EAE6; --ink2:#95A49E; --ink3:#6E7D78;
+      --rule:#2A3632; --rule-soft:#222D29;
+      --accent:#4FB7A9; --accent-soft:#2E6560; --accent-wash:#1B302E;
+      --signal:#E08048; --signal-soft:#5A3A26;
+      --focus:#4FB7A9;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E1513; --panel:#16201D; --sunk:#1D2825;
+    --ink:#E3EAE6; --ink2:#95A49E; --ink3:#6E7D78;
+    --rule:#2A3632; --rule-soft:#222D29;
+    --accent:#4FB7A9; --accent-soft:#2E6560; --accent-wash:#1B302E;
+    --signal:#E08048; --signal-soft:#5A3A26;
+    --focus:#4FB7A9;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:15px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:1120px; margin:0 auto; padding-inline:20px; padding-block:0 72px}
+
+  /* ---- marge cotee : la colonne de gauche porte les reperes, comme la
+         marge d'une carte de releve ---- */
+  .band{
+    display:grid; grid-template-columns:84px minmax(0,1fr); gap:0 28px;
+    border-top:1px solid var(--rule); padding-block:38px;
+  }
+  .band > .gutter{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--ink3); line-height:1.5; padding-top:4px;
+  }
+  .gutter b{display:block; color:var(--accent); font-weight:600; font-size:20px;
+            letter-spacing:0; margin-bottom:6px; font-feature-settings:"tnum"}
+
+  h1,h2,h3{font-family:"Archivo",sans-serif; margin:0; text-wrap:balance}
+  h1{font-weight:900; font-size:clamp(40px,8.2vw,84px); line-height:.94;
+     letter-spacing:-.035em; margin-block:10px 0}
+  h2{font-weight:900; font-size:clamp(20px,3vw,27px); letter-spacing:-.02em; line-height:1.1}
+  h3{font-weight:700; font-size:14px; letter-spacing:-.005em}
+  p{margin:0 0 14px; max-width:64ch; color:var(--ink2)}
+  p strong{color:var(--ink); font-weight:500}
+  a{color:var(--accent)}
+
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-feature-settings:"tnum"}
+  .eyebrow{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--ink3);
+  }
+
+  /* ---- masthead ---- */
+  header.mast{padding-block:52px 34px}
+  .thesis{
+    font-family:"Archivo",sans-serif; font-weight:500;
+    font-size:clamp(17px,2.4vw,22px); line-height:1.38; letter-spacing:-.012em;
+    color:var(--ink); max-width:40ch; margin:26px 0 0;
+  }
+  .thesis em{font-style:normal; color:var(--signal); font-weight:700}
+
+  .keyrow{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr));
+    gap:1px; margin-top:38px; background:var(--rule); border:1px solid var(--rule);
+  }
+  .key{background:var(--paper); padding:14px 16px 16px}
+  .key .v{font-family:"Archivo",sans-serif; font-weight:900; font-size:clamp(22px,3.4vw,31px);
+          letter-spacing:-.03em; font-feature-settings:"tnum"; line-height:1.05}
+  .key .l{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10px;
+          letter-spacing:.13em; text-transform:uppercase; color:var(--ink3); margin-top:6px}
+
+  /* ---- relief : strates ---- */
+  .relief{display:grid; grid-template-columns:minmax(0,1fr) 272px; gap:36px; align-items:start}
+  @media(max-width:840px){ .relief{grid-template-columns:minmax(0,1fr)} }
+
+  .strata{width:100%; display:block; overflow:visible}
+  .stratum{cursor:pointer}
+  .stratum rect.bar{fill:var(--accent); transition:fill .14s ease}
+  .stratum rect.hit{fill:transparent}
+  .stratum text.nm{font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; fill:var(--ink)}
+  .stratum text.vl{font-family:"IBM Plex Mono",monospace; font-size:11.5px; fill:var(--ink2);
+                   font-feature-settings:"tnum"}
+  .stratum.is-signal rect.bar{fill:var(--signal)}
+  .stratum.is-sel rect.hit{fill:var(--sunk)}
+  .stratum.is-sel text.nm{font-weight:500; fill:var(--ink)}
+  .stratum.is-sel text.vl{fill:var(--ink)}
+  .stratum:focus{outline:none}
+  .stratum:focus-visible rect.hit{fill:var(--accent-wash)}
+
+  /* ---- panneau de detail ---- */
+  .detail{border:1px solid var(--rule); background:var(--panel); padding:18px 18px 20px; position:sticky; top:16px}
+  @media(max-width:840px){ .detail{position:static} }
+  .detail .nm{font-family:"Archivo",sans-serif; font-weight:900; font-size:19px;
+              letter-spacing:-.022em; line-height:1.12; margin-bottom:14px}
+  .dgrid{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--rule-soft);
+         border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft)}
+  .dcell{background:var(--panel); padding:9px 10px}
+  .dcell .v{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:16px;
+            font-feature-settings:"tnum"; color:var(--ink)}
+  .dcell .l{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.12em;
+            text-transform:uppercase; color:var(--ink3); margin-top:3px}
+  .terms{margin-top:14px}
+  .terms .l{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.12em;
+            text-transform:uppercase; color:var(--ink3); margin-bottom:7px}
+  .term{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:11.5px;
+        color:var(--ink); border:1px solid var(--rule); padding:2px 7px; margin:0 5px 5px 0}
+
+  /* ---- petits multiples ---- */
+  .toggle{display:inline-flex; border:1px solid var(--rule); margin-bottom:22px}
+  .toggle button{
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.11em;
+    text-transform:uppercase; padding:7px 13px; border:0; background:transparent;
+    color:var(--ink2); cursor:pointer;
+  }
+  .toggle button[aria-pressed="true"]{background:var(--accent); color:var(--paper)}
+  .toggle button:focus-visible{outline:2px solid var(--focus); outline-offset:1px}
+
+  .multiples{display:grid; grid-template-columns:repeat(auto-fill,minmax(168px,1fr)); gap:1px}
+  .mult{background:var(--paper); padding:11px 12px 9px; cursor:pointer; border:0; text-align:left;
+        font:inherit; color:inherit; display:block; width:100%;
+        box-shadow:0 0 0 1px var(--rule-soft)}
+  .mult:focus-visible{outline:2px solid var(--focus); outline-offset:-2px}
+  .mult.is-sel{background:var(--sunk)}
+  .mult .hd{display:flex; justify-content:space-between; align-items:baseline; gap:8px; margin-bottom:7px}
+  .mult .nm{font-size:11.5px; line-height:1.25; color:var(--ink)}
+  .mult .dl{font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-feature-settings:"tnum";
+            white-space:nowrap; color:var(--ink3)}
+  .mult .dl.up{color:var(--accent)} .mult .dl.dn{color:var(--signal)}
+  .mult svg{display:block; width:100%; height:42px; overflow:visible}
+
+  /* ---- tables de releve ---- */
+  .rows{border-top:1px solid var(--rule)}
+  .row{display:grid; grid-template-columns:minmax(0,1fr) 62px 96px; gap:12px; align-items:center;
+       border-bottom:1px solid var(--rule-soft); padding:8px 0}
+  .row .bar{height:7px; background:var(--accent); display:block}
+  .row .lab{font-size:13px}
+  .row .num{font-family:"IBM Plex Mono",monospace; font-size:12px; text-align:right;
+            font-feature-settings:"tnum"; color:var(--ink2)}
+
+  .two{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:34px}
+  figure{margin:0}
+  figcaption{font-size:12.5px; color:var(--ink3); margin-top:10px; max-width:46ch}
+
+  ul.notes{margin:0; padding-left:0; list-style:none; max-width:66ch}
+  ul.notes li{position:relative; padding-left:20px; margin-bottom:11px; color:var(--ink2); font-size:14px}
+  ul.notes li::before{content:""; position:absolute; left:0; top:.62em; width:9px; height:1px; background:var(--accent)}
+  ul.notes b{color:var(--ink); font-weight:500}
+
+  footer{border-top:1px solid var(--rule); margin-top:8px; padding-top:22px;
+         display:flex; flex-wrap:wrap; gap:14px 30px; align-items:baseline}
+  footer .eyebrow{color:var(--ink3)}
+
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important; animation:none!important} }
+</style>
+
+<div class="sheet">
+
+<header class="mast">
+  <div class="eyebrow">Relevé&nbsp;· Odoo Apps Store&nbsp;· septembre 2026</div>
+  <h1>La carte<br>des manques</h1>
+  <p class="thesis">Un module tiers n'existe que parce que le standard ne suffisait pas.
+    72&nbsp;316 modules plus tard, le premier manque des ERP n'est pas une fonction métier :
+    <em>c'est celui que leur propre taxonomie ne sait pas nommer.</em></p>
+  <div class="keyrow" id="keyrow"></div>
+</header>
+
+<section class="band">
+  <div class="gutter"><b>I</b>Le relief</div>
+  <div>
+    <h2>Où se concentrent les modules tiers</h2>
+    <p>Chaque strate est une fonction métier, sa largeur le nombre de modules distincts publiés
+      pour elle. Sélectionnez-en une : le détail et les micro-reliefs de la section suivante
+      suivent la sélection.</p>
+    <div class="relief">
+      <div><svg id="strata" class="strata" role="img"
+             aria-label="Modules tiers distincts par fonction métier"></svg></div>
+      <aside class="detail" id="detail" aria-live="polite"></aside>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="gutter"><b>II</b>Les micro-reliefs</div>
+  <div>
+    <h2>Ce qu'Odoo a comblé, ce qui résiste</h2>
+    <p>Une courbe par fonction, de la version&nbsp;7.0 à la 19.0. On lit des <strong>parts de
+      l'offre</strong> et non des effectifs : le catalogue passe de 10&nbsp;431 modules
+      disponibles en&nbsp;11.0 à 47&nbsp;953 en&nbsp;18.0, si bien qu'une fonction peut
+      quadrupler en volume tout en perdant du terrain.</p>
+    <div class="toggle" role="group" aria-label="Grandeur affichée">
+      <button type="button" id="tPart" aria-pressed="true">Part de l'offre</button>
+      <button type="button" id="tEff" aria-pressed="false">Modules disponibles</button>
+    </div>
+    <div class="multiples" id="multiples"></div>
+    <p style="margin-top:18px"><strong>La comptabilité se comble</strong> — de 23,5&nbsp;% de
+      l'offre en&nbsp;7.0 à 12,3&nbsp;% en&nbsp;18.0. <strong>Le fourre-tout technique, jamais</strong> :
+      il reste entre 27 et 32&nbsp;% sur douze versions consécutives. Ce n'est ni un oubli ni un
+      retard, c'est structurel.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="gutter"><b>III</b>Les relevés</div>
+  <div>
+    <div class="two">
+      <figure>
+        <h3 style="margin-bottom:12px">Un marché d'artisans, pas une industrie</h3>
+        <svg id="lorenz" role="img" style="width:100%;height:auto;display:block;overflow:visible"
+             aria-label="Courbe de Lorenz de la publication de modules par éditeur"></svg>
+        <figcaption>Aucun éditeur ne domine — le premier ne pèse que 3,5&nbsp;% — mais la
+          production est très inégalement répartie&nbsp;: 47&nbsp;% des éditeurs n'ont publié
+          qu'un seul module.</figcaption>
+      </figure>
+      <div>
+        <h3 style="margin-bottom:12px">Les secteurs visés</h3>
+        <div class="rows" id="secteurs"></div>
+        <figcaption>La spécialisation sectorielle reste minoritaire&nbsp;: aucun secteur ne
+          dépasse 2,1&nbsp;% du corpus. Le manque principal des ERP n'est pas d'abord
+          sectoriel.</figcaption>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="gutter"><b>IV</b>Réserves</div>
+  <div>
+    <h2>Ce que la carte ne dit pas</h2>
+    <ul class="notes">
+      <li><b>Le nombre de modules ne mesure pas un manque.</b> Une fonction dense peut refléter
+        un besoin non couvert, un besoin trop spécifique pour être standardisé, ou une rubrique
+        où il est simplement facile de publier.</li>
+      <li><b>Une part qui recule n'est pas un effectif qui recule.</b> Sept fonctions voient leur
+        part baisser alors que leur volume augmente&nbsp;: le reste du catalogue a grossi plus
+        vite. Conclure à un manque comblé serait une erreur.</li>
+      <li><b>Le regroupement en 17 fonctions est une interprétation.</b> Les 111 catégories du
+        site comportent des quasi-doublons et deux rubriques fourre-tout&nbsp;; la table de
+        correspondance est publiée pour pouvoir être contestée.</li>
+      <li><b>La page d'accueil du store n'expose que 68&nbsp;% de son catalogue.</b> Les 18
+        catégories affichées en cachent 93 autres, dont la plus grosse du site
+        (12&nbsp;210&nbsp;modules). Le périmètre de l'étude a dû être reconstitué par sondage.</li>
+      <li><b>Le corpus décrit l'offre à la date de collecte</b>, pas l'histoire des publications&nbsp;:
+        un module retiré du store est invisible.</li>
+      <li><b>Un test de robustesse a été mené</b> — en retirant les 20 plus gros éditeurs,
+        27&nbsp;% du corpus, le classement des fonctions est inchangé (Spearman&nbsp;0,984).</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <span class="eyebrow">Ameth Yade · M2 SIGLIS · Université de Pau et des Pays de l'Adour</span>
+  <span class="eyebrow"><a href="https://gitlab.com/mouhammadyadex/erp-gaps-analysis">Données et code</a></span>
+  <span class="eyebrow">72 316 modules · 6 437 éditeurs · versions 5.0 → 19.0</span>
+</footer>
+
+</div>
+
+<script>
+const D = {"corpus":{"modules":72316,"lignes":72579,"editeurs":6437,"categories":111,"fonctions":17,"gratuits":30.4,"prix":{"q25":15.0,"med":39.0,"q75":99.99,"q90":250.0},"collecte":"septembre 2026"},"versions":["7.0","8.0","9.0","10.0","11.0","12.0","13.0","14.0","15.0","16.0","17.0","18.0","19.0"],"base_tendance":"11.0","fin_tendance":"18.0","total_par_version":[838,5782,4310,8034,10431,15988,17826,23513,24814,34430,40554,47953,48639],"concentration":{"hhi":57,"gini":0.825,"top1":3.5,"top10":19.0,"top100":50.0,"mono_n":3037,"mono_pct":47,"lorenz":[[0.0002,0.0],[0.0127,0.0011],[0.0253,0.0023],[0.0381,0.0034],[0.0506,0.0045],[0.0634,0.0056],[0.076,0.0068],[0.0887,0.0079],[0.1013,0.009],[0.114,0.0102],[0.1266,0.0113],[0.1394,0.0124],[0.1519,0.0135],[0.1647,0.0147],[0.1773,0.0158],[0.19,0.0169],[0.2026,0.018],[0.2152,0.0192],[0.2279,0.0203],[0.2405,0.0214],[0.2532,0.0225],[0.2658,0.0237],[0.2785,0.0248],[0.2911,0.0259],[0.3039,0.0271],[0.3165,0.0282],[0.3292,0.0293],[0.3418,0.0304],[0.3545,0.0316],[0.3671,0.0327],[0.3798,0.0338],[0.3924,0.0349],[0.405,0.0361],[0.4177,0.0372],[0.4303,0.0383],[0.4431,0.0394],[0.4556,0.0406],[0.4684,0.0417],[0.481,0.0436],[0.4937,0.0459],[0.5063,0.0481],[0.519,0.0504],[0.5316,0.0527],[0.5444,0.0549],[0.5569,0.0572],[0.5697,0.0594],[0.5823,0.0617],[0.595,0.0639],[0.6076,0.0662],[0.6202,0.0684],[0.6329,0.0715],[0.6455,0.0749],[0.6582,0.0783],[0.6708,0.0817],[0.6835,0.0851],[0.6961,0.0884],[0.7089,0.0922],[0.7215,0.0967],[0.7342,0.1012],[0.7468,0.1057],[0.7595,0.1109],[0.7721,0.1165],[0.7848,0.1222],[0.7974,0.1287],[0.81,0.1354],[0.8227,0.1433],[0.8353,0.1514],[0.8481,0.1606],[0.8606,0.1707],[0.8734,0.182],[0.886,0.1946],[0.8987,0.2093],[0.9113,0.226],[0.924,0.2464],[0.9366,0.2714],[0.9494,0.3043],[0.9619,0.3492],[0.9747,0.4168],[0.9873,0.5312],[1.0,1.0]],"tops":[{"nom":"probuse consulting service","n":2537},{"nom":"softhealer","n":1665},{"nom":"pokutsoft","n":1534},{"nom":"browseinfo","n":1469},{"nom":"inkerp","n":1250},{"nom":"devintelle consulting service","n":1218}]},"fonctions":[{"nom":"Outils transverses & technique","n":14373,"part":19.9,"serie":[29.83,27.1,30.86,28.5,29.0,29.58,28.68,32.14,29.79,31.27,29.14,27.57,23.61],"effectifs":[250,1567,1330,2290,3025,4729,5113,7557,7391,10766,11816,13222,11483],"delta":-1.43,"p_deb":29.0,"p_fin":27.57,"gratuit":42.0,"prix_med":29.0,"mots":["button hide","hide menu","hide chatter","google drive"]},{"nom":"Ventes & CRM","n":9853,"part":13.6,"serie":[8.23,9.1,9.51,10.92,13.03,12.65,13.54,13.26,13.17,12.35,12.23,12.11,12.2],"effectifs":[69,526,410,877,1359,2022,2414,3118,3269,4253,4958,5809,5934],"delta":-0.92,"p_deb":13.03,"p_fin":12.11,"gratuit":27.0,"prix_med":25.39,"mots":["sale order","product sale","order product","sale price"]},{"nom":"Comptabilite & finance","n":9727,"part":13.5,"serie":[23.51,21.48,13.6,13.93,12.65,11.21,10.65,10.86,11.01,10.94,11.55,12.29,12.1],"effectifs":[197,1242,586,1119,1320,1792,1899,2553,2733,3765,4686,5894,5887],"delta":-0.36,"p_deb":12.65,"p_fin":12.29,"gratuit":34.0,"prix_med":49.0,"mots":["vendor bill","journal entries","exchange rate","currency rate"]},{"nom":"Site web & e-commerce","n":6789,"part":9.4,"serie":[0.0,9.27,13.94,12.04,10.69,11.87,11.47,9.38,9.93,8.86,8.52,8.2,8.21],"effectifs":[0,536,601,967,1115,1897,2044,2206,2464,3052,3455,3934,3992],"delta":-2.49,"p_deb":10.69,"p_fin":8.2,"gratuit":22.0,"prix_med":35.99,"mots":["delivery carrier","label generation","minimum order","delivery tracking"]},{"nom":"Point de vente","n":6054,"part":8.4,"serie":[1.43,3.08,6.1,10.02,8.2,9.08,8.36,7.03,7.57,7.12,7.59,7.21,7.26],"effectifs":[12,178,263,805,855,1452,1491,1654,1878,2451,3077,3459,3530],"delta":-0.99,"p_deb":8.2,"p_fin":7.21,"gratuit":18.0,"prix_med":25.925,"mots":["point sale","sale product","order point","order receipt"]},{"nom":"Logistique & stocks","n":5245,"part":7.3,"serie":[8.35,5.21,5.15,4.39,4.85,4.88,5.55,5.39,5.4,5.86,6.28,6.58,6.68],"effectifs":[70,301,222,353,506,781,989,1267,1340,2019,2546,3153,3250],"delta":1.73,"p_deb":4.85,"p_fin":6.58,"gratuit":32.0,"prix_med":42.41,"mots":["delivery order","landed cost","inventory adjustment","delivery carrier"]},{"nom":"Projets & services","n":4591,"part":6.3,"serie":[2.51,5.05,3.67,3.15,4.15,3.94,3.95,3.77,4.25,3.92,4.07,4.31,6.83],"effectifs":[21,292,158,253,433,630,704,887,1054,1349,1651,2065,3321],"delta":0.16,"p_deb":4.15,"p_fin":4.31,"gratuit":21.0,"prix_med":128.49,"mots":["job costing","material purchase","purchase requisitions","package installs"]},{"nom":"Collaboration & documents","n":3450,"part":4.8,"serie":[2.03,1.99,1.81,1.71,1.93,2.23,2.15,2.36,2.89,3.43,4.28,4.55,5.1],"effectifs":[17,115,78,137,201,356,384,555,718,1180,1737,2180,2479],"delta":2.62,"p_deb":1.93,"p_fin":4.55,"gratuit":25.0,"prix_med":44.105000000000004,"mots":["chatter message","schedule activity","send message","approval request"]},{"nom":"Achats","n":3006,"part":4.2,"serie":[6.21,6.9,6.61,6.72,7.87,7.74,7.92,7.33,7.47,6.83,6.52,5.83,5.44],"effectifs":[52,399,285,540,821,1238,1412,1724,1854,2352,2645,2798,2647],"delta":-2.04,"p_deb":7.87,"p_fin":5.83,"gratuit":30.0,"prix_med":19.26,"mots":["purchase order","request quotation","product purchase","vendor product"]},{"nom":"Production","n":1900,"part":2.6,"serie":[0.36,0.42,0.53,0.42,0.63,0.84,1.27,1.55,1.87,2.09,2.36,2.45,2.8],"effectifs":[3,24,23,34,66,134,226,365,465,720,958,1177,1364],"delta":1.82,"p_deb":0.63,"p_fin":2.45,"gratuit":22.0,"prix_med":59.91,"mots":["manufacturing order","work order","bill materials","repair order"]},{"nom":"Ressources humaines","n":1647,"part":2.3,"serie":[2.74,1.87,2.2,2.25,2.13,1.74,2.13,2.06,2.29,2.11,2.02,2.3,2.99],"effectifs":[23,108,95,181,222,278,379,484,567,725,818,1105,1452],"delta":0.17,"p_deb":2.13,"p_fin":2.3,"gratuit":22.0,"prix_med":51.135,"mots":["employee payslip","employee expense","public holidays","payroll salary"]},{"nom":"Localisation & conformite","n":1583,"part":2.2,"serie":[5.49,3.96,2.2,1.94,1.52,1.16,1.0,1.01,0.79,0.87,0.89,1.56,1.63],"effectifs":[46,229,95,156,159,185,179,237,196,301,362,749,794],"delta":0.04,"p_deb":1.52,"p_fin":1.56,"gratuit":61.0,"prix_med":93.45,"mots":["resource calendar","facturación electrónica","estado resultados","tipo cambio"]},{"nom":"Verticaux sectoriels","n":1277,"part":1.8,"serie":[0.84,0.54,0.79,0.93,0.72,0.66,0.56,1.0,0.91,1.56,1.51,1.68,2.26],"effectifs":[7,31,34,75,75,106,99,236,226,536,614,807,1099],"delta":0.96,"p_deb":0.72,"p_fin":1.68,"gratuit":34.0,"prix_med":149.0,"mots":["hotel booking","room booking","hotel room","estate rental"]},{"nom":"Non renseigne","n":1089,"part":1.5,"serie":[6.44,2.16,1.46,1.57,1.43,1.15,1.38,1.42,1.25,1.16,1.03,0.84,0.54],"effectifs":[54,125,63,126,149,184,246,334,309,400,416,404,265],"delta":-0.59,"p_deb":1.43,"p_fin":0.84,"gratuit":49.0,"prix_med":29.75,"mots":["short phrase","phrase summary","summary purpose","purpose subtitle"]},{"nom":"Marketing","n":813,"part":1.1,"serie":[0.0,1.07,0.67,0.82,0.63,0.67,0.77,0.82,0.85,0.94,1.12,1.28,1.27],"effectifs":[0,62,29,66,66,107,137,192,212,324,455,615,616],"delta":0.65,"p_deb":0.63,"p_fin":1.28,"gratuit":29.0,"prix_med":60.9,"mots":["mass mailing","sms gateway","facebook messenger","send sms"]},{"nom":"Decisionnel & reporting","n":507,"part":0.7,"serie":[0.72,0.67,0.63,0.44,0.43,0.34,0.33,0.34,0.24,0.34,0.4,0.67,0.59],"effectifs":[6,39,27,35,45,54,59,79,59,116,163,320,287],"delta":0.24,"p_deb":0.43,"p_fin":0.67,"gratuit":33.0,"prix_med":61.55,"mots":["inventory movement","analysis inventory","excel export"]},{"nom":"Integrations & connecteurs","n":412,"part":0.6,"serie":[1.31,0.14,0.26,0.25,0.13,0.27,0.29,0.28,0.32,0.35,0.49,0.55,0.49],"effectifs":[11,8,11,20,14,43,51,65,79,121,197,262,239],"delta":0.42,"p_deb":0.13,"p_fin":0.55,"gratuit":26.0,"prix_med":149.0,"mots":["import export","auto import","product feed","feed heureka"]}],"reglementaire":{"total":7.4,"regl":4.4,"pays":4.4,"rubrique":2.2},"secteurs":[{"nom":"Services financiers","v":1483},{"nom":"Hôtellerie & restauration","v":1384},{"nom":"Transport & logistique","v":1300},{"nom":"BTP & immobilier","v":1051},{"nom":"Commerce de détail","v":809},{"nom":"Santé & pharmacie","v":634},{"nom":"Éducation","v":372},{"nom":"Agriculture","v":295}],"spearman":0.984};
+const F = D.fonctions;
+const SIGNAL = "Outils transverses & technique";
+/* La table de correspondance est ecrite sans accents pour rester portable ;
+   l'affichage les restitue. */
+const LABEL = {
+  "Comptabilite & finance": "Comptabilité & finance",
+  "Localisation & conformite": "Localisation & conformité",
+  "Decisionnel & reporting": "Décisionnel & reporting",
+  "Integrations & connecteurs": "Intégrations & connecteurs",
+  "Non renseigne": "Non renseigné",
+};
+const lab = n => LABEL[n] || n;
+const nf = n => n.toLocaleString("fr-FR");
+let sel = F[0].nom, mode = "part";
+
+/* ---------- bandeau de chiffres ---------- */
+document.getElementById("keyrow").innerHTML = [
+  [nf(D.corpus.modules), "modules distincts"],
+  [nf(D.corpus.editeurs), "éditeurs"],
+  [D.corpus.categories, "catégories"],
+  [D.corpus.gratuits.toFixed(1).replace(".", ",") + " %", "gratuits"],
+  [D.corpus.prix.med.toFixed(0) + " €", "prix médian"],
+].map(([v, l]) => `<div class="key"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+
+/* ---------- I. le relief ---------- */
+const S = {w: 640, rowH: 26, padL: 200, padR: 92, padT: 8};
+function drawStrata(){
+  const max = Math.max(...F.map(f => f.n));
+  const h = F.length * S.rowH + S.padT;
+  const inner = S.w - S.padL - S.padR;
+  const svg = document.getElementById("strata");
+  svg.setAttribute("viewBox", `0 0 ${S.w} ${h}`);
+  svg.innerHTML = F.map((f, i) => {
+    const y = S.padT + i * S.rowH, bw = Math.max(1.5, inner * f.n / max);
+    const cls = ["stratum", f.nom === SIGNAL ? "is-signal" : "",
+                 f.nom === sel ? "is-sel" : ""].join(" ");
+    return `<g class="${cls}" data-n="${f.nom}" tabindex="0" role="button"
+               aria-label="${lab(f.nom)}, ${nf(f.n)} modules, ${String(f.part).replace(".", ",")} %">
+      <rect class="hit" x="0" y="${y - 3}" width="${S.w}" height="${S.rowH - 2}"></rect>
+      <text class="nm" x="${S.padL - 10}" y="${y + 13}" text-anchor="end">${lab(f.nom)}</text>
+      <rect class="bar" x="${S.padL}" y="${y + 4}" width="${bw}" height="12"></rect>
+      <text class="vl" x="${S.padL + bw + 8}" y="${y + 14}">${nf(f.n)}</text>
+    </g>`;
+  }).join("");
+  svg.querySelectorAll(".stratum").forEach(g => {
+    const pick = () => select(g.dataset.n);
+    g.addEventListener("click", pick);
+    g.addEventListener("mouseenter", pick);
+    g.addEventListener("focus", pick);
+    g.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); }
+    });
+  });
+}
+
+/* ---------- panneau de detail ---------- */
+function drawDetail(){
+  const f = F.find(x => x.nom === sel);
+  const d = f.delta, sgn = d > 0 ? "+" : "";
+  document.getElementById("detail").innerHTML = `
+    <div class="eyebrow">Fonction sélectionnée</div>
+    <div class="nm">${lab(f.nom)}</div>
+    <div class="dgrid">
+      <div class="dcell"><div class="v">${nf(f.n)}</div><div class="l">modules</div></div>
+      <div class="dcell"><div class="v">${String(f.part).replace(".", ",")} %</div><div class="l">du catalogue</div></div>
+      <div class="dcell"><div class="v" style="color:${d < 0 ? "var(--signal)" : "var(--accent)"}">${sgn}${String(d).replace(".", ",")}</div>
+        <div class="l">pts, ${D.base_tendance}→${D.fin_tendance}</div></div>
+      <div class="dcell"><div class="v">${f.prix_med ? f.prix_med.toFixed(0) + " €" : "—"}</div><div class="l">prix médian</div></div>
+    </div>
+    <div class="terms">
+      <div class="l">Termes les plus spécifiques</div>
+      ${f.mots.length ? f.mots.map(m => `<span class="term">${m}</span>`).join("")
+                      : '<span class="term">corpus trop petit</span>'}
+    </div>`;
+}
+
+/* ---------- II. petits multiples ---------- */
+const M = {w: 160, h: 42};
+function spark(f){
+  const vals = mode === "part" ? f.serie : f.effectifs;
+  const max = mode === "part"
+    ? Math.max(...F.map(x => Math.max(...x.serie)))
+    : Math.max(...F.map(x => Math.max(...x.effectifs)));
+  const n = vals.length, stepX = M.w / (n - 1);
+  const pt = i => [i * stepX, M.h - 3 - (vals[i] / max) * (M.h - 8)];
+  const line = vals.map((_, i) => pt(i).map(v => v.toFixed(1)).join(",")).join(" ");
+  const area = `${pt(0)[0]},${M.h} ${line} ${pt(n - 1)[0]},${M.h}`;
+  const [ex, ey] = pt(n - 1);
+  const col = f.nom === SIGNAL ? "var(--signal)" : "var(--accent)";
+  const wash = f.nom === SIGNAL ? "var(--signal-soft)" : "var(--accent-wash)";
+  return `<svg viewBox="0 0 ${M.w} ${M.h + 2}" preserveAspectRatio="none" aria-hidden="true">
+    <polygon points="${area}" fill="${wash}"></polygon>
+    <polyline points="${line}" fill="none" stroke="${col}" stroke-width="1.6"
+              vector-effect="non-scaling-stroke" stroke-linejoin="round"></polyline>
+    <circle cx="${ex.toFixed(1)}" cy="${ey.toFixed(1)}" r="2.4" fill="${col}"></circle>
+  </svg>`;
+}
+function drawMultiples(){
+  document.getElementById("multiples").innerHTML = F.map(f => {
+    const d = f.delta, cls = d > 0 ? "up" : (d < 0 ? "dn" : "");
+    const txt = (d > 0 ? "+" : "") + String(d).replace(".", ",");
+    return `<button type="button" class="mult ${f.nom === sel ? "is-sel" : ""}" data-n="${f.nom}"
+      aria-label="${lab(f.nom)}, évolution ${D.versions[0]} à ${D.versions[D.versions.length-1]}, ${txt} points">
+      <div class="hd"><span class="nm">${lab(f.nom)}</span><span class="dl ${cls}">${txt}</span></div>
+      ${spark(f)}
+    </button>`;
+  }).join("");
+  document.querySelectorAll(".mult").forEach(b => {
+    b.addEventListener("click", () => select(b.dataset.n));
+    b.addEventListener("mouseenter", () => select(b.dataset.n));
+  });
+}
+
+/* ---------- III. Lorenz ---------- */
+function drawLorenz(){
+  const W = 300, H = 300, p = 30, in_ = W - p * 2;
+  const X = v => p + v * in_, Y = v => H - p - v * in_;
+  const P = D.concentration.lorenz.map(([x, y]) => `${X(x).toFixed(1)},${Y(y).toFixed(1)}`);
+  const pts = P.join(" "), revPts = P.slice().reverse().join(" ");
+  const svg = document.getElementById("lorenz");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.innerHTML = `
+    <polygon points="${X(0)},${Y(0)} ${X(1)},${Y(1)} ${revPts}" fill="var(--accent-wash)"></polygon>
+    <line x1="${X(0)}" y1="${Y(0)}" x2="${X(1)}" y2="${Y(1)}" stroke="var(--rule)"
+          stroke-width="1" stroke-dasharray="3 3"></line>
+    <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2"
+              stroke-linejoin="round"></polyline>
+    <text x="${X(0)}" y="${Y(1) + 2}" font-family="Archivo,sans-serif" font-weight="900"
+          font-size="20" fill="var(--ink)">Gini ${String(D.concentration.gini).replace(".", ",")}</text>
+    <text x="${X(0)}" y="${Y(1) + 17}" font-family="IBM Plex Mono,monospace" font-size="10"
+          fill="var(--ink3)">HHI ${D.concentration.hhi} / 10 000</text>
+    <text x="${X(0.5)}" y="${H - 8}" text-anchor="middle" font-family="IBM Plex Mono,monospace"
+          font-size="9.5" letter-spacing="1" fill="var(--ink3)">ÉDITEURS CUMULÉS</text>
+    <text x="12" y="${Y(0.5)}" text-anchor="middle" font-family="IBM Plex Mono,monospace"
+          font-size="9.5" letter-spacing="1" fill="var(--ink3)"
+          transform="rotate(-90 12 ${Y(0.5)})">MODULES CUMULÉS</text>
+    <text x="${X(1)}" y="${Y(0) + 15}" text-anchor="end" font-family="IBM Plex Mono,monospace"
+          font-size="9.5" fill="var(--ink3)">100 %</text>
+    <text x="${X(0)}" y="${Y(0) + 15}" font-family="IBM Plex Mono,monospace"
+          font-size="9.5" fill="var(--ink3)">0</text>`;
+}
+
+/* ---------- III. secteurs ---------- */
+function drawSecteurs(){
+  const max = Math.max(...D.secteurs.map(s => s.v));
+  document.getElementById("secteurs").innerHTML = D.secteurs.map(s => `
+    <div class="row">
+      <span class="lab">${s.nom}</span>
+      <span><i class="bar" style="width:${(s.v / max * 100).toFixed(1)}%"></i></span>
+      <span class="num">${nf(s.v)}</span>
+    </div>`).join("");
+}
+
+/* ---------- selection liee ---------- */
+function select(nom){
+  if (nom === sel) return;
+  sel = nom;
+  document.querySelectorAll(".stratum").forEach(g => {
+    g.classList.toggle("is-sel", g.dataset.n === sel);
+  });
+  document.querySelectorAll(".mult").forEach(b => b.classList.toggle("is-sel", b.dataset.n === sel));
+  drawDetail();
+}
+
+document.getElementById("tPart").addEventListener("click", () => setMode("part"));
+document.getElementById("tEff").addEventListener("click", () => setMode("eff"));
+function setMode(m){
+  mode = m;
+  document.getElementById("tPart").setAttribute("aria-pressed", String(m === "part"));
+  document.getElementById("tEff").setAttribute("aria-pressed", String(m === "eff"));
+  drawMultiples();
+}
+
+drawStrata(); drawDetail(); drawMultiples(); drawLorenz(); drawSecteurs();
+</script>
