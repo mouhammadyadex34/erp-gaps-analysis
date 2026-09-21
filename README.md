@@ -25,12 +25,13 @@ modules publiés dessinent donc, en creux, une carte des manques des ERP.
 2. **Collecte** — les pages de liste, qui portent déjà nom, éditeur, prix,
    série et compteur d'usage. Une requête pour 20 modules au lieu d'une par
    module.
-3. **Unité d'observation** — un couple *(module, série Odoo)*. Un module publié
-   pour six versions donne six lignes : on mesure l'offre disponible pour une
-   version donnée, pas le nombre de modules distincts.
-4. **Recensement croisé** — le compteur « N Apps found » interrogé pour chaque
-   couple (catégorie, série) donne la matrice temporelle complète en ~320
-   requêtes.
+3. **Unité d'observation** — un couple *(module, série Odoo)*, dédoublonné des
+   appartenances multiples : 72 579 lignes pour 72 316 modules distincts.
+4. **Deux sources, deux mesures.** La liste non filtrée n'affiche chaque module
+   **qu'une fois, à sa version la plus récente** : 55 % du corpus est en 19.0. Elle
+   décrit le catalogue, pas sa couverture par version. Pour l'axe temporel, c'est le
+   filtre `?series=` qu'il faut interroger — il recense 277 538 disponibilités
+   module-version là où le corpus en montre 72 579.
 5. **Analyse** — concentration par fonction métier, poids des contraintes
    locales, spécialisation sectorielle, et évolution par version.
 
@@ -77,8 +78,15 @@ qui vaille :
 | Total annoncé par le site | 90 848 |
 | **Résidu non attribué** | **74 (0,08 %)** |
 
-Ce résidu est publié plutôt que dissimulé. Il prouve aussi que les catégories
-forment une **partition** et non une hiérarchie : aucun double comptage.
+Ce résidu est publié plutôt que dissimulé : il établit que la liste des catégories
+est complète.
+
+**Ce qu'il n'établit pas.** Une première version de ce README en déduisait que les
+catégories formaient une partition. C'était faux. La collecte le montre :
+**23,4 % des modules relèvent de plusieurs catégories** — jusqu'à treize pour l'un
+d'eux. Les deux nombres ci-dessus comptent donc des *appartenances*, pas des modules :
+90 776 appartenances collectées correspondent à 72 579 couples (module, version)
+distincts, soit un facteur de gonflement de 1,25.
 
 ## Éthique de la collecte
 
