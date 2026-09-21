@@ -1,7 +1,7 @@
 <title>Relief des manques ERP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Roboto+Mono:wght@400;500&family=Roboto:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,400;0,500;0,600;1,400&family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap">
 <style>
   /* ------------------------------------------------------------------
      Palette : couleurs de marque Odoo (page brand-assets officielle).
@@ -24,16 +24,24 @@
     --signal:#E4A900; --signal-dim:#6B5210;
     --teal:#2BA6AC; --coral:#E46E78;
     --rowh:26px;
+    /* Fraunces porte les titres et les grands chiffres : un serif variable a
+       caractere, dont les chiffres ont du dessin. Fira Sans Condensed porte
+       tout le reste -- la condensee donne la densite qu'appelle un catalogue
+       de 72 000 entrees, et ses chiffres tabulaires s'alignent.
+       Aucun monospace, et aucune capitale lettree : les libelles passent en
+       italique bas-de-casse. */
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --sans:"Fira Sans Condensed","Helvetica Neue",Arial,sans-serif;
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
     margin:0; background:var(--bg); color:var(--txt);
-    font-family:Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased;
+    font-family:var(--sans); font-size:15.5px; line-height:1.5;
+    font-variant-numeric:tabular-nums; -webkit-font-smoothing:antialiased;
     overflow:hidden;
   }
-  .mono{font-family:"Roboto Mono",ui-monospace,monospace; font-feature-settings:"tnum"}
+  .mono{font-variant-numeric:tabular-nums}
 
   /* ---------------- coque plein ecran ---------------- */
   .app{
@@ -45,22 +53,19 @@
   .top{display:flex; align-items:flex-end; gap:26px; flex-wrap:wrap;
        padding-block:14px 12px; border-bottom:1px solid var(--line)}
   .brand h1{
-    font-family:"Familjen Grotesk",sans-serif; font-weight:700;
-    font-size:23px; letter-spacing:-.024em; margin:0; line-height:1.05;
+    font-family:var(--serif); font-weight:800; font-size:29px;
+    margin:0; line-height:1; letter-spacing:-.008em;
   }
-  .brand .sub{font-family:"Roboto Mono",monospace; font-size:9.5px; letter-spacing:.2em;
-              text-transform:uppercase; color:var(--txt3); margin-top:4px}
+  .brand .sub{font-style:italic; font-size:13.5px; color:var(--txt3); margin-top:3px}
   .figs{display:flex; gap:22px; margin-left:auto; flex-wrap:wrap}
-  .fig .v{font-family:"Familjen Grotesk",sans-serif; font-weight:700; font-size:17px;
-          font-feature-settings:"tnum"; line-height:1.1}
-  .fig .l{font-family:"Roboto Mono",monospace; font-size:9px; letter-spacing:.14em;
-          text-transform:uppercase; color:var(--txt3); margin-top:2px}
+  .fig .v{font-family:var(--serif); font-weight:800; font-size:21px; line-height:1}
+  .fig .l{font-style:italic; font-size:12.5px; color:var(--txt3); margin-top:1px}
 
   /* ---------------- onglets ---------------- */
   .tabs{display:flex; gap:2px; width:100%; margin-top:2px}
   .tab{
-    font-family:"Roboto Mono",monospace; font-size:10.5px; letter-spacing:.12em;
-    text-transform:uppercase; padding:8px 15px; border:0; cursor:pointer;
+    font-family:var(--sans); font-size:15px; font-weight:500;
+    padding:8px 14px; border:0; cursor:pointer;
     background:transparent; color:var(--txt3); border-bottom:2px solid transparent;
   }
   .tab:hover{color:var(--txt2)}
@@ -78,7 +83,7 @@
   .rank.init .rk, .rank.init .fill{transition:none}
   .rk{
     position:absolute; left:0; right:0; height:var(--rowh);
-    display:grid; grid-template-columns:200px minmax(0,1fr) 62px 52px; gap:10px;
+    display:grid; grid-template-columns:188px minmax(0,1fr) 62px 52px; gap:10px;
     align-items:center; cursor:pointer; padding-inline:6px;
     transition:transform .62s cubic-bezier(.22,.61,.36,1), background .15s;
     border:0; background:transparent; color:inherit; font:inherit; text-align:left;
@@ -87,35 +92,30 @@
   .rk:hover{background:var(--surface)}
   .rk.sel{background:var(--raised)}
   .rk:focus-visible{outline:2px solid var(--data); outline-offset:-2px}
-  .rk .nm{font-size:12.5px; text-align:right; color:var(--txt2);
+  .rk .nm{font-size:14.5px; text-align:right; color:var(--txt2);
           white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .rk.sel .nm{color:var(--txt)}
   .rk .track{height:13px; background:var(--sunk); position:relative}
   .rk .fill{position:absolute; inset:0 auto 0 0; background:var(--data);
             transition:width .62s cubic-bezier(.22,.61,.36,1)}
   .rk.sig .fill{background:var(--signal)}
-  .rk .val{font-family:"Roboto Mono",monospace; font-size:11.5px; color:var(--txt2);
-           font-feature-settings:"tnum"; text-align:right}
-  .rk .pct{font-family:"Roboto Mono",monospace; font-size:11.5px; color:var(--txt3);
-           font-feature-settings:"tnum"; text-align:right}
+  .rk .val{font-size:14px; color:var(--txt2); text-align:right}
+  .rk .pct{font-size:14px; color:var(--txt3); text-align:right}
   .rk.sel .val, .rk.sel .pct{color:var(--txt)}
 
   /* ---------------- panneau lateral ---------------- */
   .side{border-left:1px solid var(--line); padding-left:20px; min-height:0;
         overflow:auto; display:flex; flex-direction:column; gap:14px}
-  .side h2{font-family:"Familjen Grotesk",sans-serif; font-weight:700; font-size:18px;
-           letter-spacing:-.02em; line-height:1.14; margin:4px 0 0}
+  .side h2{font-family:var(--serif); font-weight:700; font-size:23px;
+           line-height:1.1; margin:4px 0 0}
   .kv{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line-soft)}
   .kv > div{background:var(--bg); padding:8px 10px}
-  .kv .v{font-family:"Roboto Mono",monospace; font-weight:500; font-size:15px;
-         font-feature-settings:"tnum"}
-  .kv .l{font-family:"Roboto Mono",monospace; font-size:9px; letter-spacing:.12em;
-         text-transform:uppercase; color:var(--txt3); margin-top:2px}
-  .cap{font-family:"Roboto Mono",monospace; font-size:9px; letter-spacing:.16em;
-       text-transform:uppercase; color:var(--txt3)}
-  .chip{display:inline-block; font-family:"Roboto Mono",monospace; font-size:11px;
-        border:1px solid var(--line); padding:2px 7px; margin:0 4px 4px 0; color:var(--txt2)}
-  .side p{margin:0; font-size:12.5px; color:var(--txt2); line-height:1.5}
+  .kv .v{font-family:var(--serif); font-weight:600; font-size:19px; line-height:1.1}
+  .kv .l{font-style:italic; font-size:12.5px; color:var(--txt3); margin-top:1px}
+  .cap{font-style:italic; font-size:13px; color:var(--txt3)}
+  .chip{display:inline-block; font-size:14px; border:1px solid var(--line);
+        padding:1px 8px; margin:0 4px 4px 0; color:var(--txt2)}
+  .side p{margin:0; font-size:14.5px; color:var(--txt2); line-height:1.5}
 
   /* ---------------- barre de temps ---------------- */
   .time{display:flex; align-items:center; gap:16px; padding-block:12px 16px;
@@ -130,44 +130,41 @@
   .play svg{width:13px; height:13px; fill:currentColor; display:block}
   .scrub{flex:1; min-width:120px}
   input[type=range]{width:100%; accent-color:var(--data); height:22px; cursor:pointer}
-  .vnow{font-family:"Familjen Grotesk",sans-serif; font-weight:700; font-size:27px;
-        letter-spacing:-.03em; font-feature-settings:"tnum"; min-width:78px; text-align:right}
-  .vmeta{font-family:"Roboto Mono",monospace; font-size:10px; color:var(--txt3);
-         letter-spacing:.1em; text-transform:uppercase; min-width:150px}
+  .vnow{font-family:var(--serif); font-weight:800; font-size:34px; line-height:1;
+        min-width:82px; text-align:right}
+  .vmeta{font-style:italic; font-size:13.5px; color:var(--txt3); min-width:160px}
   .time.off{opacity:.32; pointer-events:none}
 
   /* ---------------- vues secondaires ---------------- */
   .grid2{display:grid; grid-template-columns:auto minmax(0,1fr); gap:30px; align-items:start}
   .bars{display:grid; gap:7px; min-width:0}
   .brow{display:grid; grid-template-columns:172px minmax(0,1fr) 62px; gap:10px; align-items:center}
-  .brow .n{font-size:12.5px; color:var(--txt2); text-align:right}
+  .brow .n{font-size:14.5px; color:var(--txt2); text-align:right}
   .brow .t{height:11px; background:var(--sunk)}
   .brow .t i{display:block; height:100%; background:var(--data)}
-  .brow .q{font-family:"Roboto Mono",monospace; font-size:11.5px; color:var(--txt2);
-           text-align:right; font-feature-settings:"tnum"}
+  .brow .q{font-size:14px; color:var(--txt2); text-align:right}
   ul.notes{margin:0; padding:0; list-style:none; max-width:70ch}
-  ul.notes li{position:relative; padding-left:18px; margin-bottom:10px; color:var(--txt2); font-size:13px}
+  ul.notes li{position:relative; padding-left:18px; margin-bottom:11px; color:var(--txt2); font-size:15px}
   ul.notes li::before{content:""; position:absolute; left:0; top:.62em; width:9px; height:1px;
                       background:var(--data)}
   ul.notes b{color:var(--txt); font-weight:500}
-  .foot{font-family:"Roboto Mono",monospace; font-size:9.5px; letter-spacing:.13em;
-        text-transform:uppercase; color:var(--txt3)}
+  .foot{font-style:italic; font-size:13.5px; color:var(--txt3)}
   .foot a{color:var(--data)}
 
   @media(max-width:620px){
     /* Au format telephone, trois elements debordaient a droite : la rangee de
        chiffres, le libelle de la barre de temps et les listes a barres, tous
        dimensionnes pour une largeur de bureau. */
-    .figs{gap:14px; margin-left:0}
-    .fig .v{font-size:15px}
+    .figs{gap:16px; margin-left:0}
+    .fig .v{font-size:18px}
     .vmeta{display:none}
     .vnow{min-width:auto; font-size:22px}
     .time{gap:12px}
     .brow{grid-template-columns:106px minmax(0,1fr) 54px; gap:8px}
-    .brow .n{font-size:11.5px}
+    .brow .n{font-size:13px}
     .grid2{grid-template-columns:minmax(0,1fr)!important; gap:20px}
     .tabs{overflow-x:auto}
-    .tab{padding-inline:11px; flex:none}
+    .tab{padding-inline:10px; flex:none; font-size:14px}
   }
   @media(max-width:900px){
     body{overflow:auto}
@@ -211,9 +208,9 @@
                  aria-label="Courbe de Lorenz de la publication de modules par éditeur"></svg>
           </figure>
           <div>
-            <h2 style="font-family:'Familjen Grotesk';font-weight:700;font-size:19px;margin:0 0 10px">
+            <h2 style="font-family:var(--serif);font-weight:700;font-size:24px;line-height:1.1;margin:0 0 10px">
               Un marché d'artisans, pas une industrie</h2>
-            <p style="color:var(--txt2);font-size:13px;max-width:56ch;margin:0 0 16px">
+            <p style="color:var(--txt2);font-size:15px;max-width:58ch;margin:0 0 16px">
               Aucun éditeur ne domine : le premier ne pèse que 3,5 % du catalogue. Mais la
               production est très inégalement répartie — près d'un éditeur sur deux n'a publié
               qu'un seul module. Ces modules ne sortent pas d'une industrie planifiée, mais de
@@ -227,7 +224,7 @@
       <div class="panel" id="p-sect" role="tabpanel" aria-labelledby="t-sect">
         <div class="grid2" style="grid-template-columns:minmax(0,1fr) 300px">
           <div class="bars" id="sect"></div>
-          <p style="color:var(--txt2);font-size:13px;margin:0">
+          <p style="color:var(--txt2);font-size:15px;margin:0">
             La spécialisation sectorielle reste <b style="color:var(--txt);font-weight:500">minoritaire</b> :
             aucun secteur ne dépasse 2,1 % du corpus, et 11 % des modules seulement portent une
             mention sectorielle identifiable. Le manque principal des ERP n'est pas d'abord
@@ -289,7 +286,11 @@ const LABEL = {
   "Non renseigne":"Non renseigné",
 };
 const lab = n => LABEL[n] || n;
-const nf = n => Math.round(n).toLocaleString("fr-FR");
+// toLocaleString("fr-FR") separe les milliers par une espace fine
+// insecable (U+202F). Dans une condensee elle se referme presque
+// completement -- << 11483 >> au lieu de << 11 483 >>. On la remplace
+// par une espace insecable ordinaire, qui tient la lecture.
+const nf = n => Math.round(n).toLocaleString("fr-FR").replace(/\u202f/g, "\u00a0");
 const pc = n => n.toFixed(1).replace(".", ",");
 let ROWH = 26;
 
@@ -455,17 +456,17 @@ TABS.forEach(([t, p]) => {
     <line x1="${X(0)}" y1="${Y(0)}" x2="${X(1)}" y2="${Y(1)}" stroke="var(--line)"
           stroke-width="1" stroke-dasharray="3 3"></line>
     <polyline points="${P.join(" ")}" fill="none" stroke="var(--data)" stroke-width="2"></polyline>
-    <text x="${X(0)}" y="${Y(1) + 4}" font-family="Familjen Grotesk,sans-serif" font-weight="700"
-          font-size="21" fill="var(--txt)">Gini ${String(D.concentration.gini).replace(".", ",")}</text>
-    <text x="${X(0)}" y="${Y(1) + 20}" font-family="Roboto Mono,monospace" font-size="10"
+    <text x="${X(0)}" y="${Y(1) + 4}" font-family="Fraunces,Georgia,serif" font-weight="800"
+          font-size="24" fill="var(--txt)">Gini ${String(D.concentration.gini).replace(".", ",")}</text>
+    <text x="${X(0)}" y="${Y(1) + 20}" font-family="Fira Sans Condensed,sans-serif" font-style="italic" font-size="13"
           fill="var(--txt3)">HHI ${D.concentration.hhi} / 10 000</text>
-    <text x="${X(0.5)}" y="${H - 9}" text-anchor="middle" font-family="Roboto Mono,monospace"
-          font-size="9" letter-spacing="1" fill="var(--txt3)">ÉDITEURS CUMULÉS</text>
-    <text x="13" y="${Y(0.5)}" text-anchor="middle" font-family="Roboto Mono,monospace"
-          font-size="9" letter-spacing="1" fill="var(--txt3)"
-          transform="rotate(-90 13 ${Y(0.5)})">MODULES CUMULÉS</text>
-    <text x="${X(1)}" y="${Y(0) + 15}" text-anchor="end" font-family="Roboto Mono,monospace"
-          font-size="9" fill="var(--txt3)">100 %</text>`;
+    <text x="${X(0.5)}" y="${H - 9}" text-anchor="middle" font-family="Fira Sans Condensed,sans-serif" font-style="italic"
+          font-size="12" fill="var(--txt3)">éditeurs cumulés</text>
+    <text x="13" y="${Y(0.5)}" text-anchor="middle" font-family="Fira Sans Condensed,sans-serif" font-style="italic"
+          font-size="12" fill="var(--txt3)"
+          transform="rotate(-90 13 ${Y(0.5)})">modules cumulés</text>
+    <text x="${X(1)}" y="${Y(0) + 15}" text-anchor="end" font-family="Fira Sans Condensed,sans-serif"
+          font-size="12" fill="var(--txt3)">100 %</text>`;
 })();
 
 /* ---------- listes a barres ---------- */
