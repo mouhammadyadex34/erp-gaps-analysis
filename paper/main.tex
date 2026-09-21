@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
 \usepackage{siunitx}
 \sisetup{group-separator={\,}, group-minimum-digits=4, detect-all}
 \usepackage{csquotes}
@@ -17,6 +18,13 @@
 \usepackage[backend=bibtex,style=numeric]{biblatex}
 \addbibresource{references.bib}
 \usepackage[hidelinks]{hyperref}
+
+% Les chemins en police fixe (URL du store, regles du robots.txt) ne se coupent
+% pas et debordaient dans la marge. hyphenat autorise leur cesure, et
+% emergencystretch laisse TeX relacher un peu l'interlettrage en dernier
+% recours plutot que de produire une ligne trop longue.
+\usepackage[htt]{hyphenat}
+\setlength{\emergencystretch}{2em}
 
 \title{Cartographier les manques des ERP :\\
        une analyse des modules tiers de l'écosystème Odoo}
@@ -28,68 +36,569 @@
 \maketitle
 
 \begin{abstract}
-% À écrire en dernier. Quatre à six phrases : le problème, la méthode,
-% le résultat principal, la portée. C'est la seule partie que la majorité
-% des lecteurs lira, et elle doit tenir seule.
+Un module tiers n'existe que parce que le progiciel standard ne répondait pas à
+un besoin : chaque module publié est la trace d'un manque. Partant de cette
+hypothèse, ce travail collecte l'intégralité de l'Odoo Apps Store ---
+\num{72316} modules distincts, \num{6437} éditeurs, \num{111} catégories, des
+versions 5.0 à 19.0 --- et en tire une carte des fonctions que le standard ne
+couvre pas. Le résultat principal est que la fonction la plus dense n'est pas
+une fonction métier : la rubrique fourre-tout des outils techniques rassemble
+\SI{19.9}{\percent} du catalogue, et sa part reste comprise entre \num{27} et
+\SI{32}{\percent} de l'offre sur douze versions consécutives. À l'inverse, la
+comptabilité passe de \SI{23.5}{\percent} de l'offre en version 7.0 à
+\SI{12.3}{\percent} en 18.0, ce qui traduit une absorption progressive du besoin
+par l'éditeur. Le marché est celui d'artisans plutôt que d'une industrie :
+indice de Herfindahl à \num{57} points sur \num{10000}, et \SI{47}{\percent} des
+éditeurs n'ont publié qu'un seul module. La méthode est transposable à tout
+écosystème de modules tiers ; les données et le code sont publics.
 \end{abstract}
 
 \tableofcontents
 \newpage
 
 \section{Introduction}
+
 \subsection{Le marché des ERP et le modèle modulaire}
+
+Un progiciel de gestion intégré prétend couvrir l'ensemble des processus d'une
+organisation. Cette prétention se heurte à une contrainte simple : aucun éditeur
+ne peut anticiper la totalité des pratiques d'un secteur, d'un pays ou d'un
+métier. Les éditeurs ont donc adopté un modèle modulaire, où un noyau standard
+est complété par des modules développés et vendus par des tiers.
+
+Odoo en est un cas typique. Son Apps Store rassemble des dizaines de milliers de
+modules publiés par des intégrateurs, des éditeurs spécialisés et des
+développeurs indépendants, pour chaque version majeure du produit depuis 2009.
+
 \subsection{La question de recherche}
+
+L'hypothèse de ce travail tient en une phrase : \emph{un module tiers n'existe
+que pour une raison, c'est que quelqu'un a payé un développeur parce que le
+standard ne répondait pas à son besoin}. Chaque module publié est donc la trace
+d'un manque, et leur distribution dessine, en creux, une carte de ce que les
+ERP ne couvrent pas.
+
+D'où la question :
+
+\begin{quote}
+\textbf{Qu'est-ce qui manque réellement aux ERP, et où ces manques se
+concentrent-ils ?}
+\end{quote}
+
 \subsection{Ce que ce travail apporte}
 
+Cette carte n'a pas été publiée. Les éditeurs n'y ont pas intérêt : elle met en
+évidence les trous de leur propre produit. Les intégrateurs la connaissent
+empiriquement mais ne la formalisent pas.
+
+Ce travail ne construit pas un outil et ne propose pas de solution. Il
+\emph{documente} un problème, à partir de données publiques, avec une méthode et
+un code reproductibles. Sa contribution est triple : un jeu de données complet
+et documenté, une carte fonctionnelle des manques, et une mesure de leur
+évolution sur douze versions.
+
 \section{Méthodologie}
+
 \subsection{Source des données et périmètre}
+
+La source est l'Odoo Apps Store (\texttt{apps.odoo.com}), consulté en septembre
+2026. Le périmètre est exhaustif : toutes les catégories, toutes les versions,
+modules gratuits et payants.
+
 \subsection{Protocole de collecte et précautions éthiques}
 
-% Les règles pertinentes du robots.txt d'apps.odoo.com sont
-% Disallow: */page/*/*, Disallow: *?*page= et Disallow: *?*order=.
-% Les URL employées sont de la forme
-% /apps/modules/category/<catégorie>/browse/page/<n> : la pagination est un
-% segment terminal, donc hors du motif */page/*/* ; aucun paramètre page= ni
-% order= n'est utilisé. Délai de 1,5 s entre requêtes, User-Agent identifié.
+Le fichier \texttt{robots.txt} du site a été lu avant l'écriture de la première
+requête. Trois règles concernent le parcours des modules :
+\texttt{Disallow:~*/page/*/*}, \texttt{Disallow:~*?*page=} et
+\texttt{Disallow:~*?*order=}.
+
+Les URL employées sont de la forme
+
+\begin{center}
+\texttt{/apps/modules/category/}\textit{catégorie}\texttt{/browse/page/}\textit{n}
+\end{center}
+
+\noindent où la pagination est un segment \emph{terminal}, sans segment
+suivant : elle ne relève donc pas du
+motif \texttt{*/page/*/*}. Aucun paramètre \texttt{page=} ni \texttt{order=}
+n'est utilisé. Le paramètre \texttt{series=}, employé pour le recensement par
+version, n'est pas restreint.
+
+Aucun \texttt{Crawl-delay} n'est déclaré, ce qui ne dispense de rien. Le
+collecteur s'impose \SI{1.5}{\second} entre deux requêtes, augmentées d'un délai
+aléatoire, avec repli exponentiel en cas d'erreur serveur et un
+\texttt{User-Agent} identifiant le projet et donnant une adresse de contact.
+Chaque page téléchargée est mise en cache sur disque, ce qui garantit qu'aucune
+URL n'est demandée deux fois. Seules des données publiques sont collectées :
+aucune page nécessitant un compte, aucune donnée personnelle au-delà du nom
+commercial de l'éditeur.
 
 \subsection{Reconstitution de la liste des catégories}
+\label{sec:categories}
 
-% Section à part entière : la page d'accueil n'affiche que 18 catégories, dont
-% la somme ne couvre que 68 \% du catalogue. 111 catégories ont été
-% reconstituées par sondage, validées par un écart résiduel de
-% \num{74} modules sur \num{90848}, soit \SI{0.08}{\percent}.
+Cette étape mérite une section propre, car elle a modifié le périmètre de toute
+l'étude.
+
+La page d'accueil de l'Apps Store affiche \num{18} catégories. Les prendre pour
+la liste complète est l'erreur naturelle, et rien sur le site ne signale qu'il
+en manque. Un contrôle de cohérence l'a révélée : la somme des effectifs de ces
+\num{18} catégories ne représente que \SI{68}{\percent} du total annoncé par le
+site.
+
+Un sondage de \num{122} noms candidats, tirés des catégories standard d'Odoo
+(\texttt{ir.module.\allowbreak category}), en a fait apparaître \num{111} non vides. Parmi
+elles, \texttt{Tools} est \emph{la plus grosse catégorie du site} avec
+\num{12210} modules --- et elle n'est affichée sur aucune page de navigation.
+
+La liste retenue est validée par le seul test qui vaille (tableau
+\ref{tab:validation}).
+
+\begin{table}[htbp]
+\centering
+\caption{Validation de la liste des catégories reconstituée.}
+\label{tab:validation}
+\begin{tabular}{lr}
+\toprule
+Somme des \num{111} catégories & \num{90774} \\
+Total annoncé par le site      & \num{90848} \\
+\midrule
+\textbf{Résidu non attribué}   & \textbf{\num{74} (\SI{0.08}{\percent})} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Ce résidu est publié plutôt que dissimulé. Une précision s'impose toutefois sur
+ce qu'il n'établit pas. Il serait tentant d'en déduire que les catégories
+forment une partition, puisque leur somme ne dépasse pas le total. La collecte
+montre le contraire : \SI{23.4}{\percent} des modules relèvent de plusieurs
+catégories, jusqu'à treize pour l'un d'eux. Les deux nombres comparés comptent
+en réalité la même chose --- des \emph{appartenances} et non des modules --- et
+sont donc gonflés de façon identique. Le cas illustre une limite générale des
+contrôles de cohérence : les chiffres s'accordent, et l'inférence est fausse.
+
+\subsection{Deux sources, deux mesures}
+\label{sec:deux-sources}
+
+Le site expose deux vues qui ne mesurent pas la même chose, et les confondre
+fausserait l'analyse temporelle.
+
+La \textbf{liste non filtrée} n'affiche chaque module qu'une fois, à sa version
+la plus récente. Près de \SI{55}{\percent} du corpus y apparaît en 19.0, et
+seuls \num{260} modules sur \num{72316} y figurent sous plus d'une version.
+Cette vue décrit la \emph{fraîcheur du catalogue}, non sa couverture par
+version.
+
+Le \textbf{filtre \texttt{series=}} recense les modules \emph{disponibles} pour
+une version donnée : \num{283478} disponibilités module-version, contre
+\num{72579} lignes dans le corpus. C'est cette seconde source, obtenue par
+\num{1776} relevés (\num{111} catégories $\times$ \num{16} versions), qui fonde
+l'analyse de la section \ref{sec:evolution}.
 
 \subsection{Nettoyage : décisions prises et justifications}
+
+L'unité d'observation est le couple \emph{(module, version)}, dédoublonné des
+appartenances multiples : \num{72579} lignes pour \num{72316} modules distincts.
+
+Les décisions suivantes ont été prises et documentées dans le notebook de
+nettoyage :
+
+\begin{itemize}
+  \item \textbf{Doublons} : les appartenances multiples sont relevées avant
+  déduplication, dans une variable dédiée, plutôt que silencieusement écrasées.
+  \item \textbf{Éditeurs} : normalisation par retrait des suffixes juridiques.
+  L'ordre importe --- les suffixes doivent être retirés \emph{avant} la
+  ponctuation, faute de quoi \guillemotleft~s.a.~\guillemotright{} devient
+  \guillemotleft~s~a~\guillemotright{} et échappe au filtre. L'opération
+  regroupe \num{614} variantes ; le nom d'origine est conservé.
+  \item \textbf{Prix} : un module gratuit vaut \num{0} et non une valeur
+  manquante. Le catalogue contient des annonces fantaisistes --- un module
+  intitulé \guillemotleft~Get Rich Quick~\guillemotright{} affiche
+  \num{1000000000}~euros. Les prix supérieurs à \num{10000}~euros
+  (\num{20} modules, \SI{0.04}{\percent}) sont signalés et écartés des
+  statistiques, qui reposent sur des quantiles.
+  \item \textbf{Compteurs d'usage} : les modules gratuits affichent des
+  téléchargements, les payants des achats. Ces grandeurs sont distinctes et ne
+  sont jamais additionnées.
+  \item \textbf{Versions} : une clé de tri numérique évite que
+  \guillemotleft~10.0~\guillemotright{} précède
+  \guillemotleft~9.0~\guillemotright{}. Les releases intermédiaires d'Odoo
+  Online (\texttt{saas-19.4}) sont conservées et identifiées.
+\end{itemize}
+
 \subsection{Table de correspondance vers un référentiel fonctionnel}
-\subsection{Variables retenues}
+
+La taxonomie du site n'a pas été conçue pour l'analyse. Elle contient des
+quasi-doublons (\texttt{Purchase} / \texttt{Purchases}, \texttt{Inventory} /
+\texttt{Warehouse}, \texttt{Localization} / \texttt{Localisation}), des
+rubriques fourre-tout (\texttt{Tools} et \texttt{Extra Tools}, \num{24205}
+modules à elles deux) et des catégories de trois modules. Compter par catégorie
+brute reviendrait à mesurer les habitudes de rangement des éditeurs.
+
+Les \num{111} catégories sont donc regroupées en \num{17} fonctions métier. Deux
+choix sont assumés :
+
+\begin{itemize}
+  \item \texttt{Tools} et \texttt{Extra Tools} ne sont pas réparties de force
+  dans les autres fonctions. Leur poids est un résultat en soi, et les diluer
+  effacerait le principal constat de ce travail.
+  \item \texttt{Uncategorized}, \texttt{Other} et \texttt{Hidden} sont
+  conservées sous l'étiquette \guillemotleft~non renseigné~\guillemotright{}
+  plutôt que supprimées : les retirer gonflerait artificiellement les autres
+  fonctions.
+\end{itemize}
+
+Cette table est une \emph{interprétation}. Elle est versionnée comme une donnée
+et non enfouie dans le code, afin de pouvoir être relue, contestée et modifiée.
+Deux contrôles bloquants garantissent qu'aucune catégorie n'est perdue ni
+inventée.
 
 \section{Description du corpus}
+
 \subsection{Volumétrie}
-\subsection{Répartition par fonction métier}
+
+\begin{table}[htbp]
+\centering
+\caption{Volumétrie du corpus.}
+\label{tab:volumetrie}
+\begin{tabular}{lr}
+\toprule
+Modules distincts                      & \num{72316} \\
+Lignes (module $\times$ version)       & \num{72579} \\
+Éditeurs distincts (normalisés)        & \num{6437} \\
+Catégories du site                     & \num{111} \\
+Fonctions métier du référentiel        & \num{17} \\
+Versions Odoo couvertes                & 5.0 à 19.0 \\
+Part de modules gratuits               & \SI{30.4}{\percent} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Prix}
+
+La distribution des prix est fortement asymétrique. Le prix médian d'un module
+payant est de \num{39}~euros, le premier quartile à \num{15}, le troisième à
+\num{100} et le neuvième décile à \num{250}. La moyenne, à \num{112}~euros,
+excède le troisième quartile : elle est tirée par une longue traîne et ne doit
+pas être utilisée comme valeur de référence.
+
 \subsection{Structure du marché des éditeurs}
 
+\begin{table}[htbp]
+\centering
+\caption{Concentration du marché des éditeurs.}
+\label{tab:concentration}
+\begin{tabular}{lr}
+\toprule
+Part du premier éditeur                  & \SI{3.5}{\percent} \\
+Part des dix premiers                    & \SI{19.0}{\percent} \\
+Part des cent premiers                   & \SI{50.0}{\percent} \\
+Indice de Herfindahl (HHI)               & \num{57} / \num{10000} \\
+Coefficient de Gini                      & \num{0.83} \\
+Éditeurs n'ayant publié qu'un module     & \num{3037} (\SI{47}{\percent}) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Ces deux mesures se complètent sans se contredire. Le HHI, très bas, indique
+qu'aucun acteur ne domine : le plus gros éditeur ne pèse que
+\SI{3.5}{\percent}. Le Gini, élevé, indique que la production est néanmoins très
+inégalement répartie : une poignée d'éditeurs publie des catalogues entiers
+pendant que près d'un éditeur sur deux n'a publié qu'un seul module
+(figure \ref{fig:lorenz}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.62\textwidth]{../figures/04_concentration_editeurs.pdf}
+\caption{Le marché n'est dominé par personne, mais la production y est très
+inégalement répartie : près d'un éditeur sur deux n'a publié qu'un module.}
+\label{fig:lorenz}
+\end{figure}
+
+Cette structure est cohérente avec l'hypothèse de départ. Ces modules ne sont
+pas le produit d'une industrie planifiée, mais de milliers d'interventions
+ponctuelles : un intégrateur rencontre un besoin chez un client, le développe,
+puis le publie. Le corpus est donc bien une sédimentation de manques rencontrés
+sur le terrain.
+
 \section{Résultats}
+
 \subsection{Où se concentrent les modules tiers}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/01_modules_par_fonction.pdf}
+\caption{Le premier besoin des ERP est celui que leur propre taxonomie ne sait
+pas nommer : la rubrique des outils techniques devance toutes les fonctions
+métier identifiées.}
+\label{fig:fonctions}
+\end{figure}
+
+Le premier bloc n'est pas une fonction métier. La rubrique
+\guillemotleft~outils transverses \& technique~\guillemotright{}, qui rassemble
+\texttt{Tools}, \texttt{Extra Tools} et leurs voisines, compte \num{14373}
+modules, soit \SI{19.9}{\percent} du catalogue. Près de trois modules sur dix
+relèvent d'un besoin que la taxonomie du site elle-même ne parvient pas à
+qualifier.
+
+Viennent ensuite les ventes et le CRM (\num{9853} modules,
+\SI{13.6}{\percent}), puis la comptabilité et la finance (\num{9727},
+\SI{13.5}{\percent}), le site web et le commerce électronique (\num{6789},
+\SI{9.4}{\percent}) et le point de vente (\num{6054}, \SI{8.4}{\percent}).
+
+Ce classement appelle immédiatement une objection : ces fonctions sont aussi les
+plus anciennes et les plus larges du périmètre Odoo, et un volume élevé pourrait
+ne refléter qu'une surface fonctionnelle plus grande. Le volume seul ne tranche
+pas ; c'est l'analyse par version qui apporte l'élément décisif.
+
 \subsection{Le poids des contraintes locales et réglementaires}
+
+Un éditeur global ne peut pas couvrir la fiscalité de tous les pays. Ce que le
+standard laisse aux tiers se lit directement dans la part de modules portant un
+signal local ou réglementaire.
+
+La détection combine un vocabulaire réglementaire (TVA, facturation
+électronique, normes comptables) et les mentions de pays ou de normes
+nationales, recherchés dans le titre et le résumé. \SI{7.4}{\percent} des
+modules portent au moins un de ces signaux --- contre \SI{2.2}{\percent} pour la
+seule rubrique \texttt{Localization} du site.
+
+L'enseignement est direct : \textbf{la localisation n'est pas un module, c'est
+une dimension transverse}. Elle traverse la comptabilité, la facturation, le
+point de vente et la paie. La sous-estimer est une erreur de chiffrage classique
+dans les projets ERP.
+
+Ce chiffre doit néanmoins être présenté comme un ordre de grandeur. Une
+première version de la détection, sans bornes de mots, annonçait
+\SI{15.3}{\percent} : la chaîne \texttt{edi} y captait \num{4093} textes
+(\guillemotleft~Edition~\guillemotright,
+\guillemotleft~Credit~\guillemotright) contre \num{155} en mot entier, et
+\texttt{vat} captait \guillemotleft~private~\guillemotright. Le chiffre annoncé
+était pour moitié fabriqué par des correspondances accidentelles. Après
+correction, l'heuristique conserve des faux positifs et manque encore
+\num{537} modules pourtant rangés dans la rubrique \texttt{Localization}.
+
 \subsection{La spécialisation sectorielle}
+
+La spécialisation sectorielle est minoritaire : aucun secteur ne dépasse
+\SI{2.1}{\percent} du corpus, et \SI{11}{\percent} des modules seulement portent
+une mention sectorielle identifiable. Les secteurs les mieux représentés sont
+les services financiers (\num{1483} modules), l'hôtellerie-restauration
+(\num{1384}), le transport et la logistique (\num{1300}) et le BTP avec
+l'immobilier (\num{1051}).
+
+Le manque principal des ERP n'est donc pas d'abord sectoriel. Les secteurs qui
+ressortent sont ceux dont les processus s'écartent le plus du modèle générique
+\guillemotleft~achat -- stock -- vente~\guillemotright{} sur lequel un ERP est
+bâti.
+
 \subsection{Évolution par version : manques comblés, manques persistants}
+\label{sec:evolution}
+
+C'est le résultat central, et celui où la méthode importe le plus.
+
+On ne peut pas comparer des effectifs bruts entre versions : le catalogue passe
+de \num{10431} modules disponibles en 11.0 à \num{47953} en 18.0. Une fonction
+peut quadrupler en valeur absolue tout en perdant du terrain. On raisonne donc
+en \emph{part de l'offre d'une version donnée}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/02_evolution_par_version.pdf}
+\caption{La comptabilité se comble progressivement ; la rubrique technique, elle,
+ne se vide jamais.}
+\label{fig:evolution}
+\end{figure}
+
+\paragraph{Un manque comblé.} La comptabilité et la finance représentaient
+\SI{23.5}{\percent} de l'offre en version 7.0. Elles n'en représentent plus que
+\SI{12.3}{\percent} en 18.0. La chute est concentrée sur les premières versions
+et traduit une absorption du besoin par l'éditeur : ce que les tiers comblaient
+en 2013 est aujourd'hui dans le standard.
+
+\paragraph{Un manque structurel.} La rubrique des outils techniques reste
+comprise entre \num{27} et \SI{32}{\percent} de l'offre sur douze versions
+consécutives. Ce n'est ni un oubli ni un retard : le besoin est constant, massif,
+et l'éditeur ne l'absorbe pas. C'est le résultat le plus solide de ce travail.
+
+\paragraph{Des besoins qui montent.} Entre les versions 11.0 et 18.0, trois
+fonctions gagnent du terrain : la collaboration et la gestion documentaire
+($+\num{2.62}$ points), la production ($+\num{1.82}$) et la logistique
+($+\num{1.73}$).
+
+\paragraph{Un piège d'interprétation.} Une part qui recule n'est pas un effectif
+qui recule. Sept fonctions voient leur part baisser alors que leur effectif
+augmente : le site web et le commerce électronique passent de \SI{10.7}{\percent}
+à \SI{8.2}{\percent} de l'offre tandis que leurs modules passent de \num{1115} à
+\num{3934}. Pour ces fonctions, le besoin n'a pas été comblé --- le reste du
+catalogue a simplement grossi plus vite. Conclure à un manque comblé serait une
+erreur.
+
+\subsection{Les besoins dans les mots des développeurs}
+
+L'analyse lexicale des résumés fait apparaître la formulation du besoin par ceux
+qui l'ont rencontré. Les bigrammes les plus spécifiques à chaque fonction sont
+mesurés par un log-odds à prior de Dirichlet, qui pénalise les termes rares.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/05_termes_par_fonction.pdf}
+\caption{Les besoins tels que les développeurs les formulent.}
+\label{fig:termes}
+\end{figure}
+
+Le résultat est éclairant pour la rubrique technique, dont le contenu restait
+jusqu'ici opaque. Ses bigrammes les plus spécifiques sont
+\guillemotleft~button hide~\guillemotright,
+\guillemotleft~hide menu~\guillemotright,
+\guillemotleft~tracking track~\guillemotright{} et
+\guillemotleft~import export~\guillemotright{} : \textbf{masquer des éléments
+d'interface, restreindre des accès, tracer des modifications, importer et
+exporter des données}. Le premier manque des ERP n'est pas fonctionnel au sens
+métier --- c'est l'adaptation de l'outil à l'organisation qui l'emploie.
+
+En comptabilité, les termes dominants sont
+\guillemotleft~vendor bill~\guillemotright,
+\guillemotleft~journal entries~\guillemotright,
+\guillemotleft~exchange rate~\guillemotright{} et
+\guillemotleft~currency rate~\guillemotright{} : la gestion multidevise et le
+traitement des factures fournisseurs concentrent l'effort résiduel.
+
+\subsection{Prix et robustesse}
+
+Le prix médian varie fortement selon la fonction (figure \ref{fig:prix}). Les
+modules sectoriels et les connecteurs affichent les médianes les plus élevées ;
+la localisation, en revanche, présente la plus forte proportion de modules
+gratuits (\SI{61}{\percent}), ce qui suggère une production largement
+communautaire.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../figures/03_prix_par_fonction.pdf}
+\caption{Les modules sectoriels et les connecteurs sont les plus chers ; la
+localisation est la fonction la plus largement gratuite.}
+\label{fig:prix}
+\end{figure}
+
+Une objection sérieuse doit être écartée : le classement des fonctions
+pourrait ne refléter que la stratégie commerciale des gros éditeurs, qui
+publient des catalogues entiers. Le test consiste à retirer les vingt plus gros
+éditeurs, soit \SI{27}{\percent} du corpus, et à recalculer la répartition. Le
+classement est inchangé : la corrélation des rangs de Spearman est de
+\num{0.984}. La carte des manques ne dépend pas des gros éditeurs.
 
 \section{Discussion}
+
 \subsection{Ce que révèle cette carte}
-\subsection{Implications pour un projet ERP : faire ou acheter}
+
+Trois enseignements se dégagent.
+
+Le premier est que \textbf{le besoin dominant n'est pas fonctionnel mais
+adaptatif}. Masquer un bouton, restreindre un accès, tracer une modification,
+importer un fichier : ce ne sont pas des fonctions métier absentes, ce sont des
+ajustements de l'outil à une organisation. Qu'ils représentent le premier poste
+de l'écosystème suggère que la difficulté des ERP n'est pas tant de couvrir les
+processus que de se laisser plier par ceux qui les emploient.
+
+Le deuxième est que \textbf{l'éditeur comble réellement certains manques}. La
+trajectoire de la comptabilité le montre sans ambiguïté. Le modèle modulaire
+fonctionne donc comme un mécanisme de détection : ce que les tiers publient
+massivement finit, parfois, par entrer dans le standard.
+
+Le troisième est que \textbf{certains manques résistent}. Une part stable sur
+douze versions ne s'explique ni par un retard ni par un oubli. Elle suggère que
+le besoin est trop hétérogène pour être standardisé --- chaque organisation veut
+masquer un bouton différent.
+
+\subsection{Implications pour un projet ERP}
+
+Pour qui cadre un projet, trois conséquences pratiques.
+
+\textbf{Sur la décision de faire ou d'acheter}, la densité de modules dans une
+fonction est un indicateur utile mais ambigu. Une fonction dense signale qu'une
+solution existe probablement déjà --- et qu'il est inutile de la redévelopper.
+Elle signale aussi que le standard n'y suffit pas, et qu'il faut budgéter
+l'écart.
+
+\textbf{Sur le chiffrage}, la localisation doit être traitée comme une dimension
+transverse et non comme une ligne du devis. Elle touche \SI{7.4}{\percent} du
+corpus alors que la rubrique dédiée n'en représente que \SI{2.2}{\percent}.
+
+\textbf{Sur le risque fournisseur}, avec \SI{47}{\percent} des éditeurs ne
+publiant qu'un seul module, la pérennité d'un module tiers ne va pas de soi.
+
 \subsection{Limites de l'étude}
 
-% Rappel à tenir dans tout le document : un volume élevé de modules dans une
-% fonction ne prouve pas que le standard y est mauvais. Il peut signaler un
-% besoin réellement non couvert, un besoin trop spécifique pour être
-% standardisé, ou une rubrique où il est simplement facile de publier.
+Cette section est la plus importante, car elle dit ce que l'analyse ne prouve
+pas.
+
+\paragraph{Sur la mesure.} Le nombre de modules ne mesure pas directement un
+manque. Une fonction dense peut refléter un besoin non couvert, un besoin trop
+spécifique pour être standardisé, ou une rubrique où il est simplement facile de
+publier. Cette ambiguïté est irréductible et affecte tous les résultats.
+
+\paragraph{Sur le périmètre temporel.} Le corpus décrit l'offre à la date de
+collecte, non l'histoire des publications. Un module retiré du store est
+invisible : les versions anciennes sont donc sous-estimées d'une manière qu'on
+ne peut pas chiffrer. La version la plus récente, encore en cours de
+remplissage, est exclue des calculs de tendance.
+
+\paragraph{Sur les choix de traitement.} Le regroupement en \num{17} fonctions
+est une interprétation ; un autre découpage donnerait d'autres volumes. La
+détection du caractère local, réglementaire ou sectoriel repose sur des
+mots-clés, avec faux positifs et faux négatifs. La normalisation des éditeurs
+peut fusionner deux sociétés aux noms proches.
+
+\paragraph{Sur les données absentes.} La note moyenne, la licence et la date de
+publication ne figurent pas sur les cartes de liste et n'ont pas été collectées.
+Les compteurs d'usage ne sont pas homogènes entre modules gratuits et payants.
+Le résidu de \num{74} modules non attribués à une catégorie est connu et assumé.
+
+\paragraph{Sur la portée.} L'analyse porte sur un seul écosystème. Ce qui manque
+à Odoo ne manque pas nécessairement à SAP ou à Dynamics. La méthode, en
+revanche, est transposable à tout marché de modules tiers.
 
 \section{Conclusion}
 
+Ce travail ne prétend pas résoudre un problème que le marché a déjà résolu. Il
+documente un problème que personne n'avait documenté : la distribution des
+manques d'un ERP, telle qu'elle s'inscrit dans les \num{72316} modules que des
+tiers ont jugé nécessaire de publier.
+
+La réponse à la question posée est moins attendue que prévu. Ce qui manque le
+plus aux ERP n'est pas une fonction métier, mais la capacité de l'outil à se
+plier aux particularités de chaque organisation --- masquer, restreindre, tracer,
+importer. Ce manque est le premier en volume et le plus stable dans le temps.
+Les manques fonctionnels, eux, se comblent : la comptabilité en fournit
+l'exemple le plus net.
+
+Enfin, un résultat de méthode mérite d'être signalé : la page d'accueil de
+l'Apps Store n'expose que \SI{68}{\percent} de son propre catalogue. Vérifier ce
+point a changé le périmètre de toute l'étude, et rappelle qu'un jeu de données
+commence par la question de savoir ce qu'il ne contient pas.
+
 \appendix
 \section{Dictionnaire des données}
+
+Le dictionnaire complet des \num{26} colonnes du corpus nettoyé figure dans le
+dépôt, fichier \texttt{data/processed/dictionnaire\_donnees.md}.
+
 \section{Table de correspondance des catégories}
-\section{Code source}
+
+La table associant les \num{111} catégories du site aux \num{17} fonctions
+métier figure dans le dépôt, fichier
+\texttt{data/processed/category\_mapping.csv}.
+
+\section{Code source et données}
+
+L'intégralité du code, sous forme de trois notebooks reproductibles, ainsi que
+les données de référence, sont publiés à l'adresse :
+
+\begin{center}
+\url{https://gitlab.com/mouhammadyadex/erp-gaps-analysis}
+\end{center}
+
+Les notebooks régénèrent le corpus complet depuis la source, sans intervention
+manuelle.
 
 \printbibliography
 
