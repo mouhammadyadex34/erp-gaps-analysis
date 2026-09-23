@@ -23,6 +23,7 @@ pages:
       HEAD
     - cat dashboard/index.html >> public/index.html
     - printf '\n</body>\n</html>\n' >> public/index.html
+    - cp paper/main.pdf public/analyse-manques-erp.pdf
   artifacts:
     paths:
       - public
