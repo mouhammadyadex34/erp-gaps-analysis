@@ -295,6 +295,14 @@ const pc = n => n.toFixed(1).replace(".", ",");
 let ROWH = 26;
 
 let vi = V.length - 1, sel = SIGNAL, playing = false, timer = null;
+/* #v=<index> ouvre la page sur une version donnee : cela rend un etat precis
+   partageable, et permet de capturer une image par version. */
+(function(){
+  const m = /[#&]v=(\d+)/.exec(location.hash);
+  if (m) vi = Math.max(0, Math.min(V.length - 1, +m[1]));
+  const f = /[#&]f=([^&]+)/.exec(location.hash);
+  if (f) { const n = decodeURIComponent(f[1]); if (F.some(x => x.nom === n)) sel = n; }
+})();
 const RANG = {};
 
 /* ---------- chiffres de tete ---------- */
@@ -430,19 +438,25 @@ play.addEventListener("click", () => playing ? stop() : start());
 
 /* ---------- onglets ---------- */
 const TABS = [["t-relief", "p-relief"], ["t-edit", "p-edit"], ["t-sect", "p-sect"], ["t-res", "p-res"]];
-TABS.forEach(([t, p]) => {
-  document.getElementById(t).addEventListener("click", () => {
-    TABS.forEach(([tt, pp]) => {
-      const on = tt === t;
-      document.getElementById(tt).setAttribute("aria-selected", String(on));
-      document.getElementById(pp).classList.toggle("on", on);
-    });
-    const relief = t === "t-relief";
-    document.getElementById("time").classList.toggle("off", !relief);
-    document.getElementById("side").style.display = relief ? "" : "none";
-    if (!relief) stop();
+function showTab(t){
+  TABS.forEach(([tt, pp]) => {
+    const on = tt === t;
+    document.getElementById(tt).setAttribute("aria-selected", String(on));
+    document.getElementById(pp).classList.toggle("on", on);
   });
-});
+  const relief = t === "t-relief";
+  document.getElementById("time").classList.toggle("off", !relief);
+  document.getElementById("side").style.display = relief ? "" : "none";
+  if (!relief) stop();
+}
+TABS.forEach(([t]) => document.getElementById(t).addEventListener("click", () => showTab(t)));
+
+/* #tab=edit ouvre directement une vue : utile pour pointer une section
+   precise depuis un lien, et pour en capturer une image. */
+(function(){
+  const m = /[#&]tab=(\w+)/.exec(location.hash);
+  if (m) { const id = "t-" + m[1]; if (document.getElementById(id)) showTab(id); }
+})();
 
 /* ---------- Lorenz ---------- */
 (function(){

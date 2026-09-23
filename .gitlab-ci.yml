@@ -1,0 +1,30 @@
+# Publication du tableau de bord sur GitLab Pages.
+# URL : https://mouhammadyadex.gitlab.io/erp-gaps-analysis/
+#
+# dashboard/index.html est ecrit sans <!doctype>, <html>, <head> ni <body> :
+# la plateforme qui l'heberge par ailleurs fournit cette enveloppe. Pages sert
+# le fichier brut, il faut donc l'emballer ici. La source reste unique.
+pages:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - mkdir -p public
+    - |
+      cat > public/index.html <<'HEAD'
+      <!doctype html>
+      <html lang="fr">
+      <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+      <meta name="description" content="Cartographie des manques des ERP : analyse des 72 316 modules tiers de l'Odoo Apps Store, versions 5.0 a 19.0.">
+      <meta name="author" content="Ameth Yade">
+      </head>
+      <body style="margin:0">
+      HEAD
+    - cat dashboard/index.html >> public/index.html
+    - printf '\n</body>\n</html>\n' >> public/index.html
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
