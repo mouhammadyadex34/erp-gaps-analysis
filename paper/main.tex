@@ -280,7 +280,7 @@ Part de modules gratuits               & \SI{30.4}{\percent} \\
 
 La distribution des prix est fortement asymétrique. Le prix médian d'un module
 payant est de \num{39}~euros, le premier quartile à \num{15}, le troisième à
-\num{100} et le neuvième décile à \num{250}. La moyenne, à \num{112}~euros,
+\num{99.99} et le neuvième décile à \num{250}. La moyenne, à \num{112}~euros,
 excède le troisième quartile : elle est tirée par une longue traîne et ne doit
 pas être utilisée comme valeur de référence.
 
@@ -370,15 +370,19 @@ une dimension transverse}. Elle traverse la comptabilité, la facturation, le
 point de vente et la paie. La sous-estimer est une erreur de chiffrage classique
 dans les projets ERP.
 
-Ce chiffre doit néanmoins être présenté comme un ordre de grandeur. Une
-première version de la détection, sans bornes de mots, annonçait
-\SI{15.3}{\percent} : la chaîne \texttt{edi} y captait \num{4093} textes
-(\guillemotleft~Edition~\guillemotright,
-\guillemotleft~Credit~\guillemotright) contre \num{155} en mot entier, et
-\texttt{vat} captait \guillemotleft~private~\guillemotright. Le chiffre annoncé
-était pour moitié fabriqué par des correspondances accidentelles. Après
-correction, l'heuristique conserve des faux positifs et manque encore
-\num{537} modules pourtant rangés dans la rubrique \texttt{Localization}.
+Ce chiffre doit être présenté comme un ordre de grandeur, car la mesure est
+très sensible à l'ancrage des motifs. Recherchés comme simples sous-chaînes,
+les termes courts produisent des correspondances accidentelles en masse :
+\texttt{edi} apparaît dans \num{4093} textes, contre \num{155} en mot entier,
+parce qu'il est contenu dans \guillemotleft~Edition~\guillemotright{} ou
+\guillemotleft~Credit~\guillemotright{} ; \texttt{vat} est contenu dans
+\guillemotleft~private~\guillemotright{} et \texttt{ubl} dans
+\guillemotleft~public~\guillemotright. La détection atteindrait alors
+\SI{15.3}{\percent}, dont la moitié en faux positifs. Les motifs sont donc
+ancrés sur des bornes de mots. Même ainsi, l'heuristique conserve des faux
+positifs et manque \num{537} modules pourtant rangés dans la rubrique
+\texttt{Localization} : elle classe des ordres de grandeur, elle ne mesure
+pas.
 
 \subsection{La spécialisation sectorielle}
 
@@ -602,6 +606,13 @@ les données de référence, sont publiés à l'adresse :
 
 Les notebooks régénèrent le corpus complet depuis la source, sans intervention
 manuelle.
+
+Un tableau de bord interactif, qui permet de parcourir le classement des
+fonctions version par version, est publié à l'adresse :
+
+\begin{center}
+\url{https://erp-gaps-analysis-cade51.gitlab.io/}
+\end{center}
 
 \printbibliography
 
