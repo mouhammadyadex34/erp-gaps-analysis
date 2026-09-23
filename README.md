@@ -1,39 +1,96 @@
 # Cartographier les manques des ERP
 
-**Chaque module tiers publié sur l'Odoo Apps Store est la trace d'un besoin que
-le progiciel standard ne couvrait pas. Ce dépôt collecte ces modules et en tire
-une carte des manques des ERP.**
-
-> *Résultat principal : à compléter une fois l'analyse terminée.*
-
-![Figure principale](figures/01_modules_par_categorie.pdf)
-
----
-
-## La question
-
 Un module tiers n'existe que pour une raison : quelqu'un a payé un développeur
-parce que le standard ne répondait pas à son besoin. Les dizaines de milliers de
-modules publiés dessinent donc, en creux, une carte des manques des ERP.
+parce que le progiciel standard ne répondait pas à son besoin. Chaque module
+publié est donc la trace d'un manque, et leur distribution dessine en creux une
+carte de ce que les ERP ne couvrent pas.
 
-**Qu'est-ce qui manque réellement aux ERP, et où ces manques se concentrent-ils ?**
+Ce dépôt collecte l'intégralité de l'Odoo Apps Store et en tire cette carte.
 
-## Méthodologie en cinq lignes
+## Résultat principal
 
-1. **Source** — l'Odoo Apps Store (`apps.odoo.com`), **111 catégories**,
-   séries Odoo 5.0 à 19.0 plus les releases intermédiaires `saas-*`.
-2. **Collecte** — les pages de liste, qui portent déjà nom, éditeur, prix,
-   série et compteur d'usage. Une requête pour 20 modules au lieu d'une par
-   module.
-3. **Unité d'observation** — un couple *(module, série Odoo)*, dédoublonné des
-   appartenances multiples : 72 579 lignes pour 72 316 modules distincts.
-4. **Deux sources, deux mesures.** La liste non filtrée n'affiche chaque module
-   **qu'une fois, à sa version la plus récente** : 55 % du corpus est en 19.0. Elle
-   décrit le catalogue, pas sa couverture par version. Pour l'axe temporel, c'est le
-   filtre `?series=` qu'il faut interroger — il recense 277 538 disponibilités
-   module-version là où le corpus en montre 72 579.
-5. **Analyse** — concentration par fonction métier, poids des contraintes
-   locales, spécialisation sectorielle, et évolution par version.
+Sur 72 316 modules tiers, la fonction qui en concentre le plus n'est pas une
+fonction métier. C'est la rubrique fourre-tout des outils techniques, avec
+19,9 % du catalogue. L'analyse lexicale des résumés montre ce qu'elle contient :
+masquer un bouton, restreindre un accès, tracer une modification, importer un
+fichier. Le premier manque des ERP n'est pas fonctionnel, il est adaptatif.
+
+![Modules tiers par fonction métier](figures/01_modules_par_fonction.png)
+
+Deux autres résultats ressortent de l'analyse par version.
+
+La comptabilité représentait 23,5 % de l'offre en version 7.0. Elle n'en
+représente plus que 12,3 % en 18.0 : l'éditeur a absorbé une large part du
+besoin au fil des versions.
+
+La rubrique technique, elle, reste comprise entre 27 et 32 % de l'offre sur
+douze versions consécutives. Ce n'est ni un oubli ni un retard, c'est un manque
+structurel.
+
+![Évolution de la part de chaque fonction par version](figures/02_evolution_par_version.png)
+
+## Le corpus en bref
+
+| | |
+|---|---:|
+| Modules distincts | 72 316 |
+| Lignes (module × version) | 72 579 |
+| Éditeurs, après normalisation des noms | 6 437 |
+| Catégories du site | 111 |
+| Fonctions métier du référentiel | 17 |
+| Versions Odoo couvertes | 5.0 à 19.0 |
+| Modules gratuits | 30,4 % |
+| Prix médian d'un module payant | 39 € |
+
+La répartition par fonction : outils transverses et technique 19,9 %, ventes et
+CRM 13,6 %, comptabilité et finance 13,5 %, site web et commerce électronique
+9,4 %, point de vente 8,4 %.
+
+Le marché est celui d'artisans plutôt que d'une industrie. L'indice de
+Herfindahl s'établit à 57 points sur 10 000, le plus gros éditeur ne pèse que
+3,5 % du catalogue, et 47 % des éditeurs n'ont publié qu'un seul module.
+
+La contrainte locale ou réglementaire touche 7,4 % des modules, contre 2,2 %
+pour la seule rubrique « Localisation » du site. Elle traverse la comptabilité,
+la facturation, le point de vente et la paie : ce n'est pas un module, c'est une
+dimension.
+
+## Méthode
+
+**Source.** L'Odoo Apps Store, consulté en septembre 2026. Périmètre exhaustif :
+111 catégories, versions 5.0 à 19.0, modules gratuits et payants.
+
+**Unité d'observation.** Le couple (module, version Odoo), dédoublonné des
+appartenances multiples : 72 579 lignes pour 72 316 modules distincts. Les
+catégories du site se recoupent, 23,4 % des modules relèvent de plusieurs
+d'entre elles, et jusqu'à treize pour l'un.
+
+**Deux vues, deux mesures.** La liste non filtrée n'affiche chaque module qu'une
+fois, à sa version la plus récente : 55 % du corpus y apparaît en 19.0. Elle
+décrit la fraîcheur du catalogue, pas sa couverture par version. L'axe temporel
+vient donc du filtre `?series=`, qui recense les modules disponibles pour chaque
+version : 277 538 disponibilités, contre 72 579 lignes dans le corpus.
+
+**Référentiel fonctionnel.** La taxonomie du site n'a pas été conçue pour
+l'analyse : quasi-doublons (`Purchase` et `Purchases`, `Inventory` et
+`Warehouse`, `Localization` et `Localisation`), rubriques fourre-tout, et
+catégories de trois modules. Les 111 catégories sont donc regroupées en 17
+fonctions métier. Cette table est une interprétation ; elle est versionnée comme
+une donnée, dans `data/processed/category_mapping.csv`, pour pouvoir être relue
+et modifiée.
+
+## La liste des catégories a dû être reconstituée
+
+La page d'accueil de l'Apps Store affiche 18 catégories. La somme de leurs
+effectifs ne représente que 68 % du total annoncé par le site : un tiers du
+catalogue est rangé dans des catégories qui ne sont affichées nulle part. Parmi
+elles, `Tools`, la plus grosse du site avec 12 210 modules.
+
+Le notebook de collecte sonde 122 noms candidats, tirés des catégories standard
+d'Odoo, et en retient 111 non vides. La liste est vérifiée par comparaison des
+totaux : 90 774 contre 90 848 annoncés, soit un résidu non attribué de 74
+modules (0,08 %). Ces deux nombres comptent des appartenances et non des
+modules, puisque les catégories se recoupent.
 
 ## Reproduire
 
@@ -43,116 +100,95 @@ pip install -r requirements.txt
 jupyter lab
 ```
 
-Puis les trois notebooks, dans l'ordre :
+Puis les trois notebooks dans l'ordre. Ils sont autonomes : tout le code y
+figure, il n'y a aucun module à importer.
 
-| Notebook | Ce qu'il fait | Durée |
+| Notebook | Contenu | Durée |
 |---|---|---|
-| `01_collecte.ipynb` | robots.txt, catégories, recensement, fiches | ~2 h |
-| `02_nettoyage.ipynb` | nettoyage, référentiel, dictionnaire | < 1 min |
-| `03_analyse.ipynb` | analyses et cinq figures | < 1 min |
+| `01_collecte.ipynb` | robots.txt, catégories, recensement, fiches | environ 2 h |
+| `02_nettoyage.ipynb` | nettoyage, référentiel, dictionnaire des données | moins d'une minute |
+| `03_analyse.ipynb` | analyses et cinq figures | moins d'une minute |
 
-Ils sont **autonomes** : tout le code y figure, aucun module à importer.
+La collecte met chaque page en cache sur disque et journalise les pages
+traitées. Elle peut être interrompue et reprise sans rien retélécharger.
 
-Les deux scripts mettent en cache chaque page sur disque et reprennent où ils
-se sont arrêtés. Relancer ne retélécharge rien.
+## Conditions de collecte
 
-Puis les notebooks, dans l'ordre : `01_collecte`, `02_nettoyage`, `03_analyse`.
+Le `robots.txt` d'`apps.odoo.com` a été lu avant d'écrire la première requête,
+et vérifié le 21 septembre 2026. Trois règles concernent le parcours des
+modules : `Disallow: */page/*/*`, `Disallow: *?*page=` et `Disallow: *?*order=`.
 
-## Un piège qui coûtait un tiers du corpus
+Les URL employées sont de la forme
+`/apps/modules/category/<catégorie>/browse/page/<n>`. La pagination y est un
+segment terminal, sans segment suivant : elle ne relève donc pas du premier
+motif. Aucun paramètre `page=` ni `order=` n'est utilisé.
 
-La page d'accueil de l'Apps Store affiche **18 catégories**. Les prendre pour
-la liste complète est l'erreur naturelle — et elle est silencieuse.
-
-Le contrôle de cohérence l'a révélée : la somme des effectifs de ces 18
-catégories ne représente que **68 %** du total annoncé par le site. Un tiers du
-catalogue était rangé ailleurs. Un sondage a suffi à trouver `Tools`, **la plus
-grosse catégorie du site avec 12 210 modules**, qui n'est affichée nulle part.
-
-`discover_categories.py` sonde 122 noms candidats tirés des catégories standard
-d'Odoo et en retient **111 non vides**. La liste est validée par le seul test
-qui vaille :
-
-| | |
-|---|---:|
-| Somme des 111 catégories | 90 774 |
-| Total annoncé par le site | 90 848 |
-| **Résidu non attribué** | **74 (0,08 %)** |
-
-Ce résidu est publié plutôt que dissimulé : il établit que la liste des catégories
-est complète.
-
-**Ce qu'il n'établit pas.** Une première version de ce README en déduisait que les
-catégories formaient une partition. C'était faux. La collecte le montre :
-**23,4 % des modules relèvent de plusieurs catégories** — jusqu'à treize pour l'un
-d'eux. Les deux nombres ci-dessus comptent donc des *appartenances*, pas des modules :
-90 776 appartenances collectées correspondent à 72 579 couples (module, version)
-distincts, soit un facteur de gonflement de 1,25.
-
-## Éthique de la collecte
-
-Le `robots.txt` d'`apps.odoo.com` a été lu avant d'écrire la première ligne de
-code (vérifié le 21 septembre 2026). Les règles pertinentes sont
-`Disallow: */page/*/*`, `Disallow: *?*page=` et `Disallow: *?*order=`.
-
-Les URL utilisées ici sont de la forme
-`/apps/modules/category/<catégorie>/browse/page/<n>` : la pagination est un
-segment terminal, donc hors du motif `*/page/*/*` ; aucun paramètre `page=` ni
-`order=` n'est employé. Aucun `Crawl-delay` n'est déclaré ; le collecteur
-s'impose **1,5 seconde** entre deux requêtes, avec un délai aléatoire
-supplémentaire et un repli exponentiel en cas d'erreur serveur. Le
-`User-Agent` identifie le projet et donne une adresse de contact.
+Aucun `Crawl-delay` n'est déclaré. Le collecteur s'impose malgré tout 1,5
+seconde entre deux requêtes, augmentées d'un délai aléatoire, avec repli
+exponentiel en cas d'erreur serveur. Le `User-Agent` identifie le projet et
+donne une adresse de contact.
 
 Seules des données publiques sont collectées : aucune page nécessitant un
 compte, aucune donnée personnelle au-delà du nom commercial de l'éditeur.
 
 ## Limites
 
-*Section à compléter au fil de l'analyse. Les limites déjà identifiées :*
+Le nombre de modules ne mesure pas directement un manque. Une fonction dense
+peut refléter un besoin non couvert, un besoin trop spécifique pour être
+standardisé, ou une rubrique où il est simplement facile de publier.
 
-- **Le nombre de modules ne mesure pas directement un manque.** Une catégorie
-  dense peut signaler un besoin non couvert, un besoin trop spécifique pour
-  être standardisé, ou simplement une catégorie où il est facile de publier.
-- **Le compteur d'usage n'est pas homogène** : « téléchargements » pour les
-  modules gratuits, « achats » pour les payants. Les deux sont stockés dans des
-  colonnes distinctes et ne doivent pas être additionnés.
-- **La catégorie est celle déclarée par l'éditeur**, avec ce que cela suppose
-  d'optimisation pour la visibilité.
-- **La note moyenne, la licence et la date de publication** ne figurent pas sur
-  les cartes de liste et ne sont donc pas collectées.
-- **Un module retiré du store est invisible.** Le corpus décrit l'offre à la
-  date de collecte, pas l'histoire complète des publications.
+Une part qui recule n'est pas un effectif qui recule. Sept fonctions voient leur
+part baisser alors que leur volume augmente : le reste du catalogue a grossi
+plus vite.
 
-## Structure du dépôt
+Le corpus décrit l'offre à la date de collecte, pas l'histoire des
+publications : un module retiré du store est invisible, ce qui sous-estime les
+versions anciennes dans une proportion qu'on ne peut pas chiffrer.
+
+La catégorie est déclarée par l'éditeur, avec ce que cela suppose d'optimisation
+pour la visibilité. La détection du caractère local, réglementaire ou sectoriel
+repose sur des mots-clés, avec faux positifs et faux négatifs : ce sont des
+ordres de grandeur, pas des mesures.
+
+Les compteurs d'usage ne sont pas homogènes : téléchargements pour les modules
+gratuits, achats pour les payants. Ils sont stockés dans deux colonnes distinctes
+et ne sont jamais additionnés. La note moyenne, la licence et la date de
+publication ne figurent pas sur les cartes de liste et n'ont pas été collectées.
+
+En retirant les 20 plus gros éditeurs, soit 27 % du corpus, le classement des
+fonctions reste inchangé : la corrélation des rangs de Spearman est de 0,984. La
+carte ne reflète donc pas des stratégies de catalogue.
+
+## Contenu du dépôt
 
 ```
-├── notebooks/
-│   ├── 01_collecte.ipynb   robots.txt, catégories, recensement, fiches
-│   ├── 02_nettoyage.ipynb  nettoyage, référentiel, dictionnaire
-│   └── 03_analyse.ipynb    analyses et figures
-├── data/
-│   ├── raw/                non versionné, régénéré par le notebook 01
-│   └── processed/
-│       ├── categories.csv           les 111 catégories du site
-│       ├── category_mapping.csv     la table de correspondance
-│       └── dictionnaire_donnees.md  description de chaque colonne
-├── figures/                figures en PDF vectoriel (générées)
-└── paper/                  document LaTeX
+notebooks/
+  01_collecte.ipynb          robots.txt, catégories, recensement, fiches
+  02_nettoyage.ipynb         nettoyage, référentiel, dictionnaire
+  03_analyse.ipynb           analyses et figures
+data/
+  raw/                       non versionné, régénéré par le notebook 01
+  processed/
+    categories.csv           les 111 catégories du site et leurs effectifs
+    category_mapping.csv     correspondance vers les 17 fonctions métier
+    dictionnaire_donnees.md  description de chaque colonne du corpus
+dashboard/index.html         tableau de bord interactif, page autonome
+figures/                     les cinq figures, en PDF vectoriel et en PNG
+paper/main.tex               le document, 12 pages
 ```
 
-Le corpus nettoyé (`data/processed/modules_clean.csv`, ~70 Mo) n'est pas versionné :
-il se régénère intégralement depuis les notebooks 01 et 02.
+Le corpus nettoyé (`data/processed/modules_clean.csv`, environ 70 Mo) n'est pas
+versionné. Il se régénère intégralement depuis les notebooks 01 et 02.
 
 ## Compiler le document
-
-Le document se compile avec [Tectonic](https://tectonic-typesetting.github.io/),
-qui télécharge lui-même les paquets nécessaires :
 
 ```bash
 cd paper && tectonic main.tex
 ```
 
-La bibliographie utilise le moteur `bibtex` plutôt que `biber` : Tectonic embarque
-le premier, le second demanderait une installation séparée.
+[Tectonic](https://tectonic-typesetting.github.io/) télécharge lui-même les
+paquets nécessaires. La bibliographie utilise `bibtex` et non `biber` : Tectonic
+embarque le premier, le second demanderait une installation séparée.
 
 ## Licence
 
