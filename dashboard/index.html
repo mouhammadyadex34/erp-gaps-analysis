@@ -4,32 +4,31 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,400;0,500;0,600;1,400&family=Fraunces:opsz,wght@9..144,600;9..144,800&display=swap">
 <style>
   /* ------------------------------------------------------------------
-     Palette : couleurs de marque Odoo (page brand-assets officielle).
-     Primaire #714B67, secondaire #017E84, partenaires #21B799 #E4A900
-     #E46E78 #5B899E.
-     Le prune brut ne plafonne qu'a 2,57:1 sur ce fond : il sert de
-     surface et de structure, jamais de texte ni de marque. Les quatre
-     teintes partenaires echouent ensemble comme palette categorielle
-     (bande de clarte, chroma, separation daltonisme) -- d'ou une seule
-     teinte de donnees, la menthe a 7,3:1, et l'or reserve au signal.
+     Identite Odoo : fond clair, prune en aplats larges. C'est ainsi que la
+     marque se presente ; un fond sombre, meme compose de teintes derivees
+     du nuancier, ne se reconnait pas comme du Odoo.
+
+     Nuancier officiel : primaire #714B67, secondaire #017E84, gris #8F8F8F,
+     partenaires #21B799 #E4A900 #E46E78 #5B899E. Il est peu sature : sur
+     fond clair, or et menthe passent sous 3:1 et sont assombris a tonalite
+     constante (#E4A900 -> #BB8100). Prune et sarcelle sont repris tels quels.
+
+     Repartition des roles : le prune porte les donnees, l'or le seul signal
+     -- le manque qui ne se comble pas --, la sarcelle l'interface (onglets,
+     lecture, curseur) sans jamais coder de donnee.
+
      Parti pris assume : un seul monde visuel, peint explicitement.
      ------------------------------------------------------------------ */
   :root{
-    color-scheme:dark;
-    --bg:#1A1017; --surface:#241722; --raised:#2E1E2B; --sunk:#150C12;
-    --line:#3A2836; --line-soft:#2C1D29;
-    --plum:#714B67; --plum-lit:#A97B9B;
-    --txt:#F2E9EF; --txt2:#B9A4B2; --txt3:#9D8695;
-    --data:#21B799; --data-dim:#17705E; --data-wash:#1B3B36;
-    --signal:#E4A900; --signal-dim:#6B5210;
-    --teal:#2BA6AC; --coral:#E46E78;
+    color-scheme:light;
+    --bg:#FBF9FA; --surface:#F4EEF2; --raised:#EDE4EA; --sunk:#EFE7EC;
+    --line:#E5DCE2; --line-soft:#EDE6EA;
+    --plum:#714B67; --plum-lit:#4E3348;
+    --txt:#2A1F26; --txt2:#6B5C64; --txt3:#9A8B93;
+    --data:#714B67; --data-dim:#A98BA0; --data-wash:#EADFE7;
+    --signal:#BB8100; --signal-dim:#F0E2C4;
+    --teal:#017E84; --coral:#E46E78;
     --rowh:26px;
-    /* Fraunces porte les titres et les grands chiffres : un serif variable a
-       caractere, dont les chiffres ont du dessin. Fira Sans Condensed porte
-       tout le reste -- la condensee donne la densite qu'appelle un catalogue
-       de 72 000 entrees, et ses chiffres tabulaires s'alignent.
-       Aucun monospace, et aucune capitale lettree : les libelles passent en
-       italique bas-de-casse. */
     --serif:"Fraunces",Georgia,"Times New Roman",serif;
     --sans:"Fira Sans Condensed","Helvetica Neue",Arial,sans-serif;
   }
@@ -69,8 +68,8 @@
     background:transparent; color:var(--txt3); border-bottom:2px solid transparent;
   }
   .tab:hover{color:var(--txt2)}
-  .tab[aria-selected="true"]{color:var(--txt); border-bottom-color:var(--data)}
-  .tab:focus-visible{outline:2px solid var(--data); outline-offset:-2px}
+  .tab[aria-selected="true"]{color:var(--txt); border-bottom-color:var(--teal)}
+  .tab:focus-visible{outline:2px solid var(--teal); outline-offset:-2px}
 
   /* ---------------- corps ---------------- */
   .body{display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:22px;
@@ -91,7 +90,7 @@
   }
   .rk:hover{background:var(--surface)}
   .rk.sel{background:var(--raised)}
-  .rk:focus-visible{outline:2px solid var(--data); outline-offset:-2px}
+  .rk:focus-visible{outline:2px solid var(--teal); outline-offset:-2px}
   .rk .nm{font-size:14.5px; text-align:right; color:var(--txt2);
           white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .rk.sel .nm{color:var(--txt)}
@@ -106,7 +105,7 @@
   /* ---------------- panneau lateral ---------------- */
   .side{border-left:1px solid var(--line); padding-left:20px; min-height:0;
         overflow:auto; display:flex; flex-direction:column; gap:14px}
-  .side h2{font-family:var(--serif); font-weight:700; font-size:23px;
+  .side h2{font-family:var(--serif); font-weight:700; font-size:23px; color:var(--plum);
            line-height:1.1; margin:4px 0 0}
   .kv{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line-soft)}
   .kv > div{background:var(--bg); padding:8px 10px}
@@ -121,16 +120,16 @@
   .time{display:flex; align-items:center; gap:16px; padding-block:12px 16px;
         border-top:1px solid var(--line)}
   .play{
-    width:38px; height:38px; flex:none; border:1px solid var(--data); background:transparent;
-    color:var(--data); cursor:pointer; display:grid; place-items:center; border-radius:50%;
+    width:38px; height:38px; flex:none; border:1px solid var(--teal); background:transparent;
+    color:var(--teal); cursor:pointer; display:grid; place-items:center; border-radius:50%;
     transition:background .15s, color .15s;
   }
-  .play:hover{background:var(--data); color:var(--bg)}
-  .play:focus-visible{outline:2px solid var(--data); outline-offset:2px}
+  .play:hover{background:var(--teal); color:var(--bg)}
+  .play:focus-visible{outline:2px solid var(--teal); outline-offset:2px}
   .play svg{width:13px; height:13px; fill:currentColor; display:block}
   .scrub{flex:1; min-width:120px}
-  input[type=range]{width:100%; accent-color:var(--data); height:22px; cursor:pointer}
-  .vnow{font-family:var(--serif); font-weight:800; font-size:34px; line-height:1;
+  input[type=range]{width:100%; accent-color:var(--teal); height:22px; cursor:pointer}
+  .vnow{font-family:var(--serif); font-weight:800; font-size:34px; line-height:1; color:var(--plum);
         min-width:82px; text-align:right}
   .vmeta{font-style:italic; font-size:13.5px; color:var(--txt3); min-width:160px}
   .time.off{opacity:.32; pointer-events:none}
