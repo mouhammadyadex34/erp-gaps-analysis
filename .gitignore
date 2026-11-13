@@ -30,3 +30,4 @@ data/processed/modules_clean.csv
 
 # Les figures sont versionnees : elles sont produites sur le corpus complet
 # et le document LaTeX les inclut.
+.DS_Store
